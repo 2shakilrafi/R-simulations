@@ -1,0 +1,4 @@
+
+sqr <- function(q, ve) {
+     
+}

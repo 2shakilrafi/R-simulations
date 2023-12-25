@@ -1,0 +1,30 @@
+```{R}
+source("aux_fun.R")
+source("nn_creator2.R")
+source("par.R")
+source("realization.R")
+source("activations.R")
+source("comp.R")
+library(Matrix)
+```
+```{R}
+test_nn <- create_neural_network(c(5, 4, 5, 2, 3, 4, 5))
+test_nn_2 <- create_neural_network(c(5, 4, 5, 2, 3, 4, 5))
+comp <- test_nn%•%test_nn_2
+
+param(test_nn)
+param(test_nn_2)
+
+experiment <- (test_nn%⊟%test_nn)%•%(test_nn_2%⊟%test_nn_2)
+```
+```{r}
+lay(experiment)
+
+```
+```{r}
+source("tun.R")
+tun(4)
+
+```
+
+

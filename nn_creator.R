@@ -21,7 +21,7 @@ create_neural_network <- function(neuron_counts) {
     
     # Create vector b
     b <- matrix(rnorm(output_size),
-                nrow = output_size, 
+                nrow = output_size,
                 ncol = 1)
     
     # Add W and b to the list

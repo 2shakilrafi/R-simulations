@@ -1,6 +1,6 @@
 source("aux_fun.R")
 
-# The composition script that takes two nn and reutrns their composition 
+# The composition script that takes two nn and reutrns their composition
 
 `%•%` <- function (nu, mu) {
   if (dep(nu) == 1 & dep(mu) == 1) {

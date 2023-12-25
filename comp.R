@@ -1,5 +1,7 @@
 source("aux_fun.R")
 
+# The composition script
+
 `%•%` <- function (nu, mu) {
   if (dep(nu) == 1 & dep(mu) == 1) {
     W <- nu[[1]]$W %*% mu[[1]]$W

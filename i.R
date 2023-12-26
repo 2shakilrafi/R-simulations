@@ -1,5 +1,16 @@
 
 
+
+
+
+#' Title
+#'
+#' @param d
+#'
+#' @return
+#' @export
+#'
+#' @examples
 i <- function(d) {
   return_network <- list()
   W <- diag(d)

@@ -1,5 +1,14 @@
 
 
+#' Title
+#'
+#' @param W 
+#' @param b 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 aff <- function (W, b) {
   return(list(list(W = W, b = b)))
 }

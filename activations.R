@@ -1,7 +1,8 @@
 
 
+
 ReLU <- function(x) {
-  return (max(x, 0))
+  return(max(x, 0))
 }
 
 Sigmoid <- function(x) {

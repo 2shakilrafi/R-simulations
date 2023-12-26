@@ -1,4 +1,0 @@
-
-sqr <- function(q, ve) {
-     
-}

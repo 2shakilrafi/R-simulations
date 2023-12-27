@@ -25,8 +25,15 @@ ggplot(diff_data, aes(x = x, y = y, color = factor(k))) +
     y = "log10 of the 1-norm distance over entire domain"
   )
 
-param_data <- data.frame(x = 1:100, y = param(phi(1:100)))
+param_data <- data.frame(x = 1:100, y = vectorized_param(vectorized_phi(1:100)))
 
+ggplot(param_data, aes(x = x, y = y)) +
+  geom_line() + 
+  theme_minimal() + 
+  xlab("Size of k") + 
+  ylab("Number of parameters") + 
+  ggtitle("Plot of the number of parameters of ϕ(k) against k") + 
+  geom_smooth(method = "lm", se = FALSE, color = "blue")
 
 
 

@@ -12,7 +12,6 @@
 #' @return the output of the standard ReLU function
 
 ReLU <- function(x) {
-  
   return(max(x, 0))
 }
 
@@ -23,6 +22,5 @@ ReLU <- function(x) {
 #' @return the output of a standard sigmoid function
 
 Sigmoid <- function(x) {
-  
   return(1 / (1 + exp(-x)))
 }

@@ -1,14 +1,12 @@
-
-
 hid <- function(nu) {
-  return (length(nu) - 1)
+  return(length(nu) - 1)
 }
 
 dep <- function(nu) {
   return(length(nu))
 }
 
-inn <- function (nu) {
+inn <- function(nu) {
   return(dim(nu[[1]][[1]])[2])
 }
 
@@ -32,5 +30,5 @@ param <- function(nu) {
     param_count <-
       param_count + length(nu[[i]][[1]]) + length(nu[[i]][[2]])
   }
-  return (param_count)
+  return(param_count)
 }

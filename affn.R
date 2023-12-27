@@ -1,5 +1,3 @@
-
-
 #' The aff function
 #'
 #' @param W an m by n matrix representing the weight of the affine neural network
@@ -7,7 +5,7 @@
 #'
 #' @return returns the network ((W,b)) representing an affine neural network
 
-aff <- function(W, b){
+aff <- function(W, b) {
   return(list(list(W = W, b = b)))
 }
 
@@ -20,14 +18,13 @@ aff <- function(W, b){
 #' @return returns an affine network that makes a concatenated vector that is n
 #' copies of the input vector
 
-cpy <- function(n, k){
-  
+cpy <- function(n, k) {
   W <- diag(k)
   for (i in 2:n) {
     W <- rbind(W, diag(k))
   }
   b <- matrix(0, n * k, 1)
-  
+
   return(list(list(W = W, b = b)))
 }
 
@@ -39,8 +36,7 @@ cpy <- function(n, k){
 #' @return an affine neural network that will take a vector of size n*k and return
 #' the summation vector that is of length k
 
-sm <- function(n, k){
-  
+sm <- function(n, k) {
   W <- diag(k)
   for (i in 2:n) {
     W <- cbind(W, diag(k))

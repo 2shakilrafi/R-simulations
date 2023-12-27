@@ -1,6 +1,13 @@
 source("comp.R")
 
+#' The Tunneling Neural Network
+#'
+#' @param n: The depth of the tunnel network
+#'
+#' @return a tunnel neural network of depth n.
+
 tun <- function(n) {
+  
   W_1 <- matrix(c(1, -1), nrow = 2, ncol = 1)
   b_1 <- matrix(c(0, 0), nrow = 2, ncol = 1)
   layer_1 <- list(W_1, b_1)

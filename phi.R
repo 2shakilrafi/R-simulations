@@ -2,7 +2,7 @@ source("comp.R")
 source("affn.R")
 source("i.R")
 source("aux_fun.R")
-source("realizations.R")
+source("realization.R")
 source("activations.R")
 
 c_k <- function(k) {
@@ -54,28 +54,3 @@ phi <- function(k) {
     return(return_network)
   }
 }
-
-diff <- function(x, k) {
-  return <- abs(x^2 - rlz(phi(k), ReLU, x))
-  return(return)
-}
-
-k_values <- c(2, 5, 10, 15, 20, 25, 30, 35, 40)
-x_values <- seq(-2, 2, length.out = 200)
-vectorized_diff <- Vectorize(diff)
-
-data <- expand.grid(k = k_values, x = x_values)
-data$y <- vectorized_diff(data$x, data$k)
-
-library(latex2exp)
-
-ggplot(data, aes(x = x, y = y, color = factor(k))) +
-  scale_y_log10() +
-  geom_line() +
-  labs(
-    x = "x",
-    y = "log10 or the 1-norm distance over entire domain"
-  )
-
-
-plot(data$x, data$y)

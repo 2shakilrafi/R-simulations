@@ -1,20 +1,37 @@
-# Function to generate a random matrix with specified dimensions
+#' Function to generate a random matrix with specified dimensions
+#'
+#' @param rows 
+#' @param cols 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 generate_random_matrix <- function(rows, cols) {
   matrix(rnorm(rows * cols), nrow = rows, ncol = cols)
 }
 
 # Function to create a list of lists for neural network layers
-create_neural_network <- function(neuron_counts) {
-  num_layers <- length(neuron_counts)
+#' Title
+#'
+#' @param layer_architecture 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+create_neural_network <- function(layer_architecture) {
+  
+  L <- length(layer_architecture)
   
   # Initialize the list of lists
-  list_of_lists <- list()
+  neural_network <- list()
   
   # Generate matrices W and vectors b for each layer
-  for (i in 1:(num_layers - 1)) {
+  for (i in 1:(L - 1)) {
     # Set dimensions for W and b
-    input_size <- neuron_counts[i]
-    output_size <- neuron_counts[i + 1]
+    input_size <- layer_architecture[i]
+    output_size <- layer_architecture[i + 1]
     
     # Create matrix W
     W <- generate_random_matrix(output_size, input_size)
@@ -25,8 +42,8 @@ create_neural_network <- function(neuron_counts) {
                 ncol = 1)
     
     # Add W and b to the list
-    list_of_lists[[i]] <- list(W = W, b = b)
+    neural_network[[i]] <- list(W = W, b = b)
   }
   
-  return(list_of_lists)
+  return(neural_network)
 }

@@ -2,7 +2,7 @@ source("aux_fun.R")
 
 # The composition script that takes two nn and reutrns their compositio
 
-`%•%` <- function (nu, mu) {
+`%•%` <- function(nu, mu) {
   if (dep(nu) == 1 & dep(mu) == 1) {
     W <- nu[[1]]$W %*% mu[[1]]$W
     b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
@@ -11,7 +11,7 @@ source("aux_fun.R")
     return(composed_network)
   }
   
-  if (dep(nu) == 1 & dep(mu) > 1) {
+  if (dep(nu) == 1 && dep(mu) > 1) {
     beginning <- mu[-length(mu)]
     end_W <- nu[[1]]$W %*% mu[[length(mu)]]$W
     end_b <- nu[[1]]$W %*% mu[[length(mu)]]$b + nu[[1]]$b
@@ -22,7 +22,7 @@ source("aux_fun.R")
     return(composed_network)
   }
   
-  if (dep(nu) > 1 & dep(mu) == 1) {
+  if (dep(nu) > 1 && dep(mu) == 1) {
     beginning_W <- nu[[1]]$W %*% mu[[1]]$W
     beginning_b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
     beginning <- list(W = beginning_W,
@@ -30,10 +30,10 @@ source("aux_fun.R")
     end <- nu[-1]
     composed_network <- c(list(beginning),
                           end)
-    return (composed_network)
+    return(composed_network)
   }
   
-  if (dep(mu) > 1 & dep(nu) > 1) {
+  if (dep(mu) > 1 && dep(nu) > 1) {
     beginning <- mu[-length(mu)]
     end <- nu[-1]
     mid_W <- mu[[1]]$W %*% mu[[length(mu)]]$W
@@ -47,7 +47,7 @@ source("aux_fun.R")
 }
 
 `%comp%` <- function (nu, mu) {
-  if (dep(nu) == 1 & dep(mu) == 1) {
+  if (dep(nu) == 1 && dep(mu) == 1) {
     W <- nu[[1]]$W %*% mu[[1]]$W
     b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
     composed_network <- (list(W = W,
@@ -55,7 +55,7 @@ source("aux_fun.R")
     return(composed_network)
   }
   
-  if (dep(nu) == 1 & dep(mu) > 1) {
+  if (dep(nu) == 1 && dep(mu) > 1) {
     beginning <- mu[-length(mu)]
     end_W <- nu[[1]]$W %*% mu[[length(mu)]]$W
     end_b <- nu[[1]]$W %*% mu[[length(mu)]]$b + nu[[1]]$b
@@ -66,7 +66,7 @@ source("aux_fun.R")
     return(composed_network)
   }
   
-  if (dep(nu) > 1 & dep(mu) == 1) {
+  if (dep(nu) > 1 && dep(mu) == 1) {
     beginning_W <- nu[[1]]$W %*% mu[[1]]$W
     beginning_b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
     beginning <- list(W = beginning_W,
@@ -77,7 +77,7 @@ source("aux_fun.R")
     return (composed_network)
   }
   
-  if (dep(mu) > 1 & dep(nu) > 1) {
+  if (dep(mu) > 1 && dep(nu) > 1) {
     beginning <- mu[-length(mu)]
     end <- nu[-1]
     mid_W <- mu[[1]]$W %*% mu[[length(mu)]]$W

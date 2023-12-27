@@ -1,11 +1,11 @@
-source("phi.R")
+source("Phi_k.R")
 source("aux_fun")
 source("realization.R")
 source("activations.R")
 
 library(ggplot2)
 
-diff <- function(x,k) {
+diff <- function(x, k) {
   abs(x^2 - rlz(phi(k), ReLU, x))
 }
 
@@ -19,7 +19,7 @@ diff_data$y <- vectorized_diff(diff_data$x, diff_data$k)
 ggplot(diff_data, aes(x = x, y = y, color = factor(k))) +
   scale_y_log10() +
   geom_line() +
-  geom_point(aes(y = 2^(-2*k - 2)), color = "black") +
+  geom_point(aes(y = 2^(-2 * k - 2)), color = "black") +
   labs(
     x = "x",
     y = "log10 of the 1-norm distance over entire domain"
@@ -28,23 +28,9 @@ ggplot(diff_data, aes(x = x, y = y, color = factor(k))) +
 param_data <- data.frame(x = 1:100, y = vectorized_param(vectorized_phi(1:100)))
 
 ggplot(param_data, aes(x = x, y = y)) +
-  geom_line() + 
-  theme_minimal() + 
-  xlab("Size of k") + 
-  ylab("Number of parameters") + 
-  ggtitle("Plot of the number of parameters of ϕ(k) against k") + 
+  geom_line() +
+  theme_minimal() +
+  xlab("Size of k") +
+  ylab("Number of parameters") +
+  ggtitle("Plot of the number of parameters of ϕ(k) against k") +
   geom_smooth(method = "lm", se = FALSE, color = "blue")
-
-
-
-
-
-
-
-
-
-
-
-
-
-

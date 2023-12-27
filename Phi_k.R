@@ -39,7 +39,7 @@ A <- function() {
   return(return)
 }
 
-phi <- function(k) {
+Phi_k <- function(k) {
   if (k == 1) {
     return_network <- (aff(C_k(1), 0) %•% i(4)) %•% aff(A(), B())
     return(return_network)

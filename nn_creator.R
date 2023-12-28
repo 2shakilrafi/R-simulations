@@ -8,7 +8,9 @@
 #'
 #' @examples
 generate_random_matrix <- function(rows, cols) {
-  matrix(rnorm(rows * cols), nrow = rows, ncol = cols)
+  return <- (rows * cols) |>
+    matrix(rows, cols)
+  return(return)
 }
 
 # Function to create a list of lists for neural network layers
@@ -21,7 +23,7 @@ generate_random_matrix <- function(rows, cols) {
 #'
 #' @examples
 create_neural_network <- function(layer_architecture) {
-  L <- length(layer_architecture)
+  L <- layer_architecture |> length()
 
   # Initialize the list of lists
   neural_network <- list()
@@ -36,10 +38,9 @@ create_neural_network <- function(layer_architecture) {
     W <- generate_random_matrix(output_size, input_size)
 
     # Create vector b
-    b <- matrix(rnorm(output_size),
-      nrow = output_size,
-      ncol = 1
-    )
+    b <- output_size |>
+      rnorm() |>
+      matrix(output_size, 1)
 
     # Add W and b to the list
     neural_network[[i]] <- list(W = W, b = b)

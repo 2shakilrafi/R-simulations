@@ -19,11 +19,11 @@ aff <- function(W, b) {
 #' copies of the input vector
 
 cpy <- function(n, k) {
-  W <- diag(k)
+  W <- k |> diag()
   for (i in 2:n) {
-    W <- rbind(W, diag(k))
+    W <- W |> rbind(k |> diag())
   }
-  b <- matrix(0, n * k, 1)
+  b <- 0 |> matrix(n * k, 1)
 
   return(list(list(W = W, b = b)))
 }
@@ -37,10 +37,10 @@ cpy <- function(n, k) {
 #' the summation vector that is of length k
 
 sm <- function(n, k) {
-  W <- diag(k)
+  W <- k |> diag()
   for (i in 2:n) {
-    W <- cbind(W, diag(k))
+    W <- W |> cbind(k |> diag())
   }
-  b <- matrix(0, k)
+  b <- 0 |> matrix(k, 1)
   return(list(list(W = W, b = b)))
 }

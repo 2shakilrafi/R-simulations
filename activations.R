@@ -12,7 +12,7 @@
 #' @return the output of the standard ReLU function
 
 ReLU <- function(x) {
-  return(max(x, 0))
+  return(x |> max(0))
 }
 
 #' The Sigmoid activation function

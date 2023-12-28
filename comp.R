@@ -58,7 +58,7 @@ source("aux_fun.R")
   }
 }
 
-`%comp%` <- function(nu, mu) {
+comp <- function(nu, mu) {
   if (dep(nu) == 1 && dep(mu) == 1) {
     W <- nu[[1]]$W %*% mu[[1]]$W
     b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b

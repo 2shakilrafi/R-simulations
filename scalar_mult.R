@@ -9,21 +9,21 @@ source("comp.R")
 source("aux_fun.R")
 
 `%|>%` <- function(a, nu) {
-  constant_matrix_size <- out(nu)
+  constant_matrix_size <- nu |> out()
   multiplier_network <- list()
-  W <- diag(a, constant_matrix_size, constant_matrix_size)
-  b <- matrix(0, nrow = constant_matrix_size, ncol = 1)
+  W <- a |> diag(constant_matrix_size)
+  b <- 0 |> matrix(constant_matrix_size)
   multiplier_network[[1]] <- list(W = W, b = b)
-  return_network <- multiplier_network %•% nu
+  return_network <- multiplier_network |> comp(nu)
   return(return_network)
 }
 
 `%<|%` <- function(nu, a) {
-  constant_matrix_size <- inn(nu)
+  constant_matrix_size <- nu |> inn()
   multiplier_network <- list()
-  W <- diag(a, constant_matrix_size, constant_matrix_size)
-  b <- matrix(0, nrow = constant_matrix_size, ncol = 1)
+  W <- a |> diag(constant_matrix_size)
+  b <- 0 |> matrix(constant_matrix_size)
   multiplier_network[[1]] <- list(W = W, b = b)
-  return_network <- multiplier_network %•% nu
+  return_network <- multiplier_network |> comp(nu)
   return(return_network)
 }

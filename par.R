@@ -5,7 +5,7 @@ create_block_diagonal <- function(matrix1, matrix2) {
   m2 <- ncol(matrix2)
 
   # Create a block diagonal matrix
-  block_diagonal_matrix <- 0 |> matrix(0, n1 + n2, m1 + m2)
+  block_diagonal_matrix <- 0 |> matrix(n1 + n2, m1 + m2)
   block_diagonal_matrix[1:n1, 1:m1] <- matrix1
   block_diagonal_matrix[(n1 + 1):(n1 + n2), (m1 + 1):(m1 + m2)] <-
     matrix2

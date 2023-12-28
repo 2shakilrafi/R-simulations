@@ -8,8 +8,10 @@ Sqr <- function(q, eps) {
   delta <- 2^(-2 / (q - 2)) * eps^(q / (q - 2))
   alpha <- (eps / 2)^(1 / (q - 2))
 
-  M <- 0.5 * ((1 / eps) |> log2() - 1) |>
+  M <- (0.5 * log2(1 / eps) - 1) |>
     ceiling()
+  
+  M <- if (M <= 0) 1 else M
 
   first_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
     comp(aff(alpha, 0))

@@ -22,7 +22,7 @@ diff_data$y <- vectorized_diff(diff_data$x, diff_data$k)
 ggplot(diff_data, aes(x = x, y = y, color = factor(k))) +
   scale_y_log10() +
   geom_line() +
-  geom_point(aes(y = 2^(-2 * k - 2)), color = "black") +
+  geom_point(aes(y = 2^(-2 * k - 2)), color = "") +
   labs(
     x = "x",
     y = "log10 of the 1-norm distance over entire domain"

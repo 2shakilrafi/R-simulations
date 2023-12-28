@@ -4,12 +4,12 @@ source("realization.R")
 source("activations.R")
 
 diff <- function(q, eps, x) {
-  return <- abs(x^2 - rlz(Sqr(q,eps), ReLU, x))
+  return <- abs(x^2 - rlz(Sqr(q, eps), ReLU, x))
   return(return)
 }
 
 Sqr_data <- expand.grid(
-  q = seq(2,10,length.out = 50),
+  q = seq(2, 10, length.out = 50),
   eps = seq(0.1, 2, length.out = 50)
 )
 

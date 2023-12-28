@@ -9,20 +9,20 @@ source("Id.R")
 
 Tun <- function(n) {
   if (n == 1) {
-    W <- matrix(1, nrow = 1, ncol = 1)
-    b <- matrix(0, nrow = 1, ncol = 1)
+    W <- 1 |> matrix()
+    b <- 0 |> matrix()
     return_network <- list(W, b)
     return(return_network)
   }
 
   if (n == 2) {
-    return(id)
+    return(Id())
   }
 
   if (n > 2) {
-    return_network <- id
+    return_network <- Id()
     for (i in 3:n) {
-      return_network <- return_network %•% id
+      return_network <- return_network |> comp(Id())
     }
     return(return_network)
   }

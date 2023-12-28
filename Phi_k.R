@@ -41,8 +41,7 @@ A <- function() {
 
 Phi_k <- function(k) {
   if (k == 1) {
-    return_network <-
-      C_k(1) |>
+    return_network <- C_k(1) |>
       aff(0) |>
       comp(i(4)) |>
       comp(aff(A(), B()))

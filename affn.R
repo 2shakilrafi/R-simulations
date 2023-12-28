@@ -23,7 +23,7 @@ cpy <- function(n, k) {
   for (i in 2:n) {
     W <- W |> rbind(k |> diag())
   }
-  b <- 0 |> matrix(n * k, 1)
+  b <- 0 |> matrix(n * k)
 
   return(list(list(W = W, b = b)))
 }
@@ -41,6 +41,6 @@ sm <- function(n, k) {
   for (i in 2:n) {
     W <- W |> cbind(k |> diag())
   }
-  b <- 0 |> matrix(k, 1)
+  b <- 0 |> matrix(k)
   return(list(list(W = W, b = b)))
 }

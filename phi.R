@@ -8,19 +8,26 @@ Phi <- function(eps) {
     ceiling()
 
   if (M == 1) {
-    return_network <- aff(C_k(1), 0) |>
+    return_network <- C_k(1) |>
+      aff(0) |>
       comp(i(4)) |>
       comp(aff(A(), B()))
     return(return_network)
   }
 
   if (M >= 2) {
-    return_network <- aff(C_k(M), 0) |> comp(i(4))
+    return_network <- C_k(M) |> 
+      aff(0) |> 
+      comp(i(4))
     for (j in (M - 1):1) {
-      intermediate_network <- aff(A_k(j), B()) |> comp(i(4))
-      return_network <- return_network |> comp(intermediate_network)
+      intermediate_network <- A_k(j) |> 
+        aff(B()) |> 
+        comp(i(4))
+      return_network <- return_network |> 
+        comp(intermediate_network)
     }
-    return_network <- return_network |> comp(aff(A(), B()))
+    return_network <- return_network |> 
+      comp(A() |> aff(B()))
     return(return_network)
   }
 }

@@ -6,15 +6,13 @@ source("activations.R")
 library(ggplot2)
 
 diff <- function(x, k) {
-  return <- k |>
-    Phi_k() |>
-    rlz(ReLU, x) |>
+  return <- (k |> Phi_k() |> rlz(ReLU, x) - x^2) |>
     abs()
 
   return(return)
 }
 
-k_values <- c(2, 5, 10, 15, 20, 25)
+k_values <- c(1, 2, 5, 10, 15, 20, 25)
 x_values <- seq(-2, 2, length.out = 200)
 vectorized_diff <- Vectorize(diff)
 

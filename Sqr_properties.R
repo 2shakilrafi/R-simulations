@@ -4,24 +4,39 @@ source("realization.R")
 source("activations.R")
 
 diff <- function(q, eps, x) {
-  return <- abs(x^2 - rlz(Sqr(q, eps), ReLU, x))
+  return <- (Sqr(q,eps) |> rlz(ReLU,x) - x^2) |> abs()
   return(return)
 }
 
 Sqr_data <- expand.grid(
-  q = seq(2, 10, length.out = 50),
-  eps = seq(0.1, 2, length.out = 50)
+  q = seq(2, 4, length.out = 500),
+  eps = seq(0.1, 2, length.out = 50),
+  x = seq(-5,5, length.out = 50)
 )
 
-for (i in 1:2500) {
-  diff(Sqr_data$q[i], Sqr_data$eps[i], 2)
-}
+vectorized_diff <- diff |> Vectorize()
 
-Sqr_data$x <- 2
-
-Sqr_data$diff_values <- apply(Sqr_data, 1, diff, 2)
+Sqr_data$diff <- vectorized_diff(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
 
 
-for (i in seq(nrow(Sqr_data))) {
-  Sqr_data$y[i] <- diff(Sqr_data$q[i], Sqr_data$eps[i], Sqr_data$x[i])
-}
+
+library(plotly)
+
+fig <- plot_ly(
+  type = 'isosurface',
+  x = Sqr_data$x,
+  y = Sqr_data$q,
+  z = Sqr_data$eps,
+  value = Sqr_data$diff,
+  isomin = 0.0001,
+  isomax = 5,
+  colorscale = 'RdBu'
+) |> 
+  layout(scene = list(xaxis = list(title = "x"),
+                          yaxis = list(title = "q"),
+                          zaxis = list(title = "eps"))) |>
+  layout(scene = list(legend = list(title = "Diff from x^2"))) |>
+  layout(title = "Isosurface plot of 1-norm error vs parameters")
+
+
+fig

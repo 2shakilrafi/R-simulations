@@ -4,37 +4,32 @@ source("realization.R")
 source("activations.R")
 
 diff <- function(eps, x) {
-  abs(x^2 - rlz(Phi(eps), ReLU, x))
+  (x^2 - eps |> Phi() |> rlz(ReLU, x)) |>
+    abs()
 }
 
 eps_values <- c(1, 0.5, 0.1, 0.01, 0.001, 0.0001)
-x_values <- seq(-2, 2, length.out = 200)
+x_values <- seq(0, 1, length.out = 100)
 vectorized_diff <- Vectorize(diff)
 
 diff_data <- expand.grid(eps = eps_values, x = x_values)
-diff_data$y <- vectorized_diff(diff_data$x, diff_data$eps)
+diff_data$Phi_diff <- vectorized_diff(diff_data$eps, diff_data$x)
 
-ggplot(diff_data, aes(x = x, y = y, color = factor(eps))) +
-  scale_y_log10() +
-  geom_line() +
-  # geom_point(aes(y = 2^(-2 * k - 2)), color = "black") +
-  labs(
-    x = "x",
-    y = "log10 of the 1-norm distance over entire domain"
-  )
+ggplot(diff_data, aes(x = x, y = eps,z = Phi_diff)) +
+  geom_contour_filled() + 
+  ggtitle("Contour plot of the 1-norm difference for values of x and eps") + 
+  theme_minimal()
 
 vectorized_Phi_k <- Vectorize(Phi_k)
 vectorized_param <- Vectorize(param)
 
 param_data <- data.frame(x = 1:100, y = vectorized_param(vectorized_Phi_k(1:100)))
 
-ggplot(param_data, aes(x = x, y = y)) +
-  geom_line() +
-  theme_minimal() +
-  xlab("Size of k") +
-  ylab("Number of parameters") +
-  ggtitle("Plot of the number of parameters of ϕ(k) against k") +
-  geom_smooth(method = "lm", se = FALSE, color = "blue")
+ggplot(param_data, aes(x ,y)) + 
+  geom_line() + 
+  theme_minimal()
+
+
 
 vectorized_dep <- Vectorize(dep)
 

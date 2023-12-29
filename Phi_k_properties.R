@@ -8,7 +8,6 @@ library(ggplot2)
 diff <- function(x, k) {
   return <- (k |> Phi_k() |> rlz(ReLU, x) - x^2) |>
     abs()
-
   return(return)
 }
 

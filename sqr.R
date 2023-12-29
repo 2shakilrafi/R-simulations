@@ -15,8 +15,10 @@ Sqr <- function(q, eps) {
 
   first_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
     comp(aff(alpha, 0))
+  
   second_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
     comp(aff(-alpha, 0))
+  
   return_network <- first_summand |>
     nn_sum(second_summand)
 

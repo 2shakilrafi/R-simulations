@@ -63,3 +63,5 @@ Phi_k <- function(k) {
     return(return_network)
   }
 }
+
+Phi_k_v <- Vectorize(Phi_k)

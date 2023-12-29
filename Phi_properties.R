@@ -15,9 +15,9 @@ vectorized_diff <- Vectorize(diff)
 diff_data <- expand.grid(eps = eps_values, x = x_values)
 diff_data$Phi_diff <- vectorized_diff(diff_data$eps, diff_data$x)
 
-ggplot(diff_data, aes(x = x, y = eps,z = Phi_diff)) +
-  geom_contour_filled() + 
-  ggtitle("Contour plot of the 1-norm difference for values of x and eps") + 
+ggplot(diff_data, aes(x = x, y = eps, z = Phi_diff)) +
+  geom_contour_filled() +
+  ggtitle("Contour plot of the 1-norm difference for values of x and eps") +
   theme_minimal()
 
 vectorized_Phi_k <- Vectorize(Phi_k)
@@ -25,8 +25,8 @@ vectorized_param <- Vectorize(param)
 
 param_data <- data.frame(x = 1:100, y = vectorized_param(vectorized_Phi_k(1:100)))
 
-ggplot(param_data, aes(x ,y)) + 
-  geom_line() + 
+ggplot(param_data, aes(x, y)) +
+  geom_line() +
   theme_minimal()
 
 

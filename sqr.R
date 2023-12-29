@@ -10,15 +10,15 @@ Sqr <- function(q, eps) {
 
   M <- (0.5 * log2(1 / eps) - 1) |>
     ceiling()
-  
+
   M <- if (M <= 0) 1 else M
 
   first_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
     comp(aff(alpha, 0))
-  
+
   second_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
     comp(aff(-alpha, 0))
-  
+
   return_network <- first_summand |>
     nn_sum(second_summand)
 

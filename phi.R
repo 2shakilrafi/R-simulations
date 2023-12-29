@@ -6,7 +6,7 @@ source("affn.R")
 Phi <- function(eps) {
   M <- (0.5 * log2(1 / eps) - 1) |>
     ceiling()
-  
+
   M <- if (M <= 0) 1 else M
 
   if (M == 1) {
@@ -33,3 +33,5 @@ Phi <- function(eps) {
     return(return_network)
   }
 }
+
+Phi_v <- Vectorize(Phi)

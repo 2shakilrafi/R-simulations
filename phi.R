@@ -7,7 +7,7 @@ Phi <- function(eps) {
   M <- (0.5 * log2(1 / eps) - 1) |>
     ceiling()
 
-  M <- if (M <= 0) 1 else M
+  M <- if (M <= 0 || is.infinite(M)) 1 else M
 
   if (M == 1) {
     return_network <- C_k(1) |>
@@ -34,4 +34,4 @@ Phi <- function(eps) {
   }
 }
 
-Phi_v <- Vectorize(Phi)
+

@@ -64,4 +64,3 @@ Phi_k <- function(k) {
   }
 }
 
-Phi_k_v <- Vectorize(Phi_k)

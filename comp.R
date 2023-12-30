@@ -2,52 +2,16 @@ source("aux_fun.R")
 
 # The composition script that takes two nn and reutrns their compositio
 
-`%•%` <- function(nu, mu) {
-  if (dep(nu) == 1 & dep(mu) == 1) {
-    W <- nu[[1]]$W %*% mu[[1]]$W
-    b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
-    composed_network <- (list(
-      W = W,
-      b = b
-    ))
-    return(composed_network)
-  }
-
-  if (dep(nu) == 1 && dep(mu) > 1) {
-    beginning <- mu[-length(mu)]
-    end_W <- nu[[1]]$W %*% mu[[length(mu)]]$W
-    end_b <- nu[[1]]$W %*% mu[[length(mu)]]$b + nu[[1]]$b
-    end <- list(
-      W = end_W,
-      b = end_b
-    )
-    composed_network <- c(
-      beginning,
-      list(end)
-    )
-    return(composed_network)
-  }
-
-  if (dep(nu) > 1 && dep(mu) == 1) {
-    beginning_W <- nu[[1]]$W %*% mu[[1]]$W
-    beginning_b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
-    beginning <- list(
-      W = beginning_W,
-      b = beginning_b
-    )
-    end <- nu[-1]
-    composed_network <- c(
-      list(beginning),
-      end
-    )
-    return(composed_network)
-  }
-
-  if (dep(mu) > 1 && dep(nu) > 1) {
-    beginning <- mu[-length(mu)]
-    end <- nu[-1]
-    mid_W <- mu[[1]]$W %*% mu[[length(mu)]]$W
-    mid_b <- nu[[1]]$W %*% mu[[length(mu)]]$b + nu[[1]]$b
+`%•%` <- function(phi_1, phi_2) {
+  
+  L  <- dep(phi_1)
+  L_ <- dep(phi_2)
+  
+  if (L > 1 & L_ > 1) {
+    beginning <- phi_2[-L_]
+    end <- phi_1[-1]
+    mid_W <- phi_1[[1]]$W %*% phi_2[[L_]]$W
+    mid_b <- phi_1[[1]]$W %*% phi_2[[L_]]$b + phi_1[[1]]$b
     mid <- list(W = mid_W, b = mid_b)
     composed_network <- c(
       beginning,
@@ -56,23 +20,26 @@ source("aux_fun.R")
     )
     return(composed_network)
   }
-}
-
-comp <- function(nu, mu) {
-  if (dep(nu) == 1 && dep(mu) == 1) {
-    W <- nu[[1]]$W %*% mu[[1]]$W
-    b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
-    composed_network <- (list(
-      W = W,
-      b = b
-    ))
+  
+  if (L > 1 & L_ == 1) {
+    beginning_W <- phi_1[[1]]$W %*% phi_2[[1]]$W
+    beginning_b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b
+    beginning <- list(
+      W = beginning_W,
+      b = beginning_b
+    )
+    end <- phi_1[-1]
+    composed_network <- c(
+      list(beginning),
+      end
+    )
     return(composed_network)
   }
-
-  if (dep(nu) == 1 && dep(mu) > 1) {
-    beginning <- mu[-length(mu)]
-    end_W <- nu[[1]]$W %*% mu[[length(mu)]]$W
-    end_b <- nu[[1]]$W %*% mu[[length(mu)]]$b + nu[[1]]$b
+  
+  if (L == 1 & L_ > 1) {
+    beginning <- phi_2[-L_]
+    end_W <- phi_1[[1]]$W %*% phi_2[[L_]]$W
+    end_b <- phi_1[[1]]$W %*% phi_2[[L_]]$b + phi_1[[1]]$b
     end <- list(
       W = end_W,
       b = end_b
@@ -83,31 +50,32 @@ comp <- function(nu, mu) {
     )
     return(composed_network)
   }
-
-  if (dep(nu) > 1 && dep(mu) == 1) {
-    beginning_W <- nu[[1]]$W %*% mu[[1]]$W
-    beginning_b <- nu[[1]]$W %*% mu[[1]]$b + nu[[1]]$b
-    beginning <- list(
-      W = beginning_W,
-      b = beginning_b
-    )
-    end <- nu[-1]
-    composed_network <- c(
-      list(beginning),
-      end
+  
+  
+  if (L == 1 & L_ == 1) {
+    # first
+    composed_network <- list()
+    W <- phi_1[[1]]$W %*% phi_2[[1]]$W
+    b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b
+    composed_network[[1]] <- list(
+      W = W,
+      b = b
     )
     return(composed_network)
   }
+}
 
-  if (dep(mu) > 1 && dep(nu) > 1) {
-    beginning <- mu[-length(mu)]
-    end <- nu[-1]
-    mid_W <- mu[[1]]$W %*% mu[[length(mu)]]$W
-    mid_b <- nu[[1]]$W %*% mu[[length(mu)]]$b + nu[[1]]$b
-    mid <- list(
-      W = mid_W,
-      b = mid_b
-    )
+comp <- function(phi_1, phi_2) {
+  
+  L  <- dep(phi_1)
+  L_ <- dep(phi_2)
+  
+  if (L > 1 & L_ > 1) {
+    beginning <- phi_2[-L_]
+    end <- phi_1[-1]
+    mid_W <- phi_1[[1]]$W %*% phi_2[[L_]]$W
+    mid_b <- phi_1[[1]]$W %*% phi_2[[L_]]$b + phi_1[[1]]$b
+    mid <- list(W = mid_W, b = mid_b)
     composed_network <- c(
       beginning,
       list(mid),
@@ -115,4 +83,48 @@ comp <- function(nu, mu) {
     )
     return(composed_network)
   }
+  
+  if (L > 1 & L_ == 1) {
+    beginning_W <- phi_1[[1]]$W %*% phi_2[[1]]$W
+    beginning_b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b
+    beginning <- list(
+      W = beginning_W,
+      b = beginning_b
+    )
+    end <- phi_1[-1]
+    composed_network <- c(
+      list(beginning),
+      end
+    )
+    return(composed_network)
+  }
+  
+  if (L == 1 & L_ > 1) {
+    beginning <- phi_2[-L_]
+    end_W <- phi_1[[1]]$W %*% phi_2[[L_]]$W
+    end_b <- phi_1[[1]]$W %*% phi_2[[L_]]$b + phi_1[[1]]$b
+    end <- list(
+      W = end_W,
+      b = end_b
+    )
+    composed_network <- c(
+      beginning,
+      list(end)
+    )
+    return(composed_network)
+  }
+  
+  
+  if (L == 1 & L_ == 1) {
+    # first
+    composed_network <- list()
+    W <- phi_1[[1]]$W %*% phi_2[[1]]$W
+    b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b
+    composed_network[[1]] <- list(
+      W = W,
+      b = b
+    )
+    return(composed_network)
+  }
 }
+

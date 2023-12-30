@@ -6,8 +6,13 @@
 #' @return returns the network ((W,b)) representing an affine neural network
 
 aff <- function(W, b) {
+  if (W |> is.matrix() == FALSE) W |> matrix()
+  if (b |> is.matrix() == FALSE) b |> matrix()
+  
   return(list(list(W = W, b = b)))
 }
+
+aff_v <- Vectorize(aff)
 
 #' The cpy network, a network that takes a vector of length k and returns a concatenated
 #' vector consisting of n copies of said vector
@@ -28,6 +33,8 @@ cpy <- function(n, k) {
   return(list(list(W = W, b = b)))
 }
 
+cpy_v <- Vectorize(cpy)
+
 #' The sum neural network
 #'
 #' @param n number of copies of a certain vector to be summed
@@ -44,3 +51,5 @@ sm <- function(n, k) {
   b <- 0 |> matrix(k)
   return(list(list(W = W, b = b)))
 }
+
+sm_v <- Vectorize(sm)

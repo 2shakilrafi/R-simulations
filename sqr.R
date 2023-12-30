@@ -3,6 +3,7 @@ source("comp.R")
 source("affn.R")
 source("nn_sum.R")
 source("Phi.R")
+source("aux_fun.R")
 
 Sqr <- function(q, eps) {
   delta <- 2^(-2 / (q - 2)) * eps^(q / (q - 2))
@@ -13,10 +14,10 @@ Sqr <- function(q, eps) {
 
   M <- if (M <= 0) 1 else M
 
-  first_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
+  first_summand <- (aff(alpha^(-2), 0) |> comp(Phi(eps))) |>
     comp(aff(alpha, 0))
 
-  second_summand <- (aff(alpha^(-2), 0) %•% Phi(eps)) |>
+  second_summand <- (aff(alpha^(-2), 0) |> comp(Phi(eps))) |>
     comp(aff(-alpha, 0))
 
   return_network <- first_summand |>
@@ -24,3 +25,6 @@ Sqr <- function(q, eps) {
 
   return(return_network)
 }
+
+Sqr_v <- Vectorize(Sqr)
+

@@ -3,10 +3,9 @@ source("aux_fun.R")
 # The composition script that takes two nn and reutrns their compositio
 
 `%•%` <- function(phi_1, phi_2) {
-  
-  L  <- dep(phi_1)
+  L <- dep(phi_1)
   L_ <- dep(phi_2)
-  
+
   if (L > 1 & L_ > 1) {
     beginning <- phi_2[-L_]
     end <- phi_1[-1]
@@ -20,7 +19,7 @@ source("aux_fun.R")
     )
     return(composed_network)
   }
-  
+
   if (L > 1 & L_ == 1) {
     beginning_W <- phi_1[[1]]$W %*% phi_2[[1]]$W
     beginning_b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b
@@ -35,7 +34,7 @@ source("aux_fun.R")
     )
     return(composed_network)
   }
-  
+
   if (L == 1 & L_ > 1) {
     beginning <- phi_2[-L_]
     end_W <- phi_1[[1]]$W %*% phi_2[[L_]]$W
@@ -50,8 +49,8 @@ source("aux_fun.R")
     )
     return(composed_network)
   }
-  
-  
+
+
   if (L == 1 & L_ == 1) {
     # first
     composed_network <- list()
@@ -66,10 +65,9 @@ source("aux_fun.R")
 }
 
 comp <- function(phi_1, phi_2) {
-  
-  L  <- dep(phi_1)
+  L <- dep(phi_1)
   L_ <- dep(phi_2)
-  
+
   if (L > 1 & L_ > 1) {
     beginning <- phi_2[-L_]
     end <- phi_1[-1]
@@ -83,7 +81,7 @@ comp <- function(phi_1, phi_2) {
     )
     return(composed_network)
   }
-  
+
   if (L > 1 & L_ == 1) {
     beginning_W <- phi_1[[1]]$W %*% phi_2[[1]]$W
     beginning_b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b
@@ -98,7 +96,7 @@ comp <- function(phi_1, phi_2) {
     )
     return(composed_network)
   }
-  
+
   if (L == 1 & L_ > 1) {
     beginning <- phi_2[-L_]
     end_W <- phi_1[[1]]$W %*% phi_2[[L_]]$W
@@ -113,8 +111,8 @@ comp <- function(phi_1, phi_2) {
     )
     return(composed_network)
   }
-  
-  
+
+
   if (L == 1 & L_ == 1) {
     # first
     composed_network <- list()
@@ -127,4 +125,3 @@ comp <- function(phi_1, phi_2) {
     return(composed_network)
   }
 }
-

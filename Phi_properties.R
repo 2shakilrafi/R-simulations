@@ -15,6 +15,8 @@ vectorized_diff <- Vectorize(diff)
 diff_data <- expand.grid(eps = eps_values, x = x_values)
 diff_data$Phi_diff <- vectorized_diff(diff_data$eps, diff_data$x)
 
+library(ggplot2)
+
 ggplot(diff_data, aes(x = x, y = eps, z = Phi_diff)) +
   geom_contour_filled() +
   ggtitle("Contour plot of the 1-norm difference for values of x and eps") +

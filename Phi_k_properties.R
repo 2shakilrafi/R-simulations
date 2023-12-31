@@ -5,27 +5,29 @@ source("activations.R")
 
 library(ggplot2)
 
-diff <- function(x, k) {
+Phi_k_diff <- function(x, k) {
   return <- (k |> Phi_k() |> rlz(ReLU, x) - x^2) |>
     abs()
   return(return)
 }
 
-k_values <- c(1, 2, 5, 10, 15, 20, 25)
+k_values <- c(1, 2, 5, 10, 15, 20)
 x_values <- seq(-2, 2, length.out = 200)
-vectorized_diff <- Vectorize(diff)
+Phi_k_diff_v <- Vectorize(Phi_k_diff)
 
-diff_data <- expand.grid(k = k_values, x = x_values)
-diff_data$y <- vectorized_diff(diff_data$x, diff_data$k)
+Phi_k_diff_data <- expand.grid(k = k_values, x = x_values)
+Phi_k_diff_data$diff <- Phi_k_diff_v(Phi_k_diff_data$x, Phi_k_diff_data$k)
 
-ggplot(diff_data, aes(x = x, y = y, color = factor(k))) +
+ggplot(Phi_k_diff_data, aes(x = x, y = diff, color = factor(k))) +
   scale_y_log10() +
   geom_line() +
-  geom_point(aes(y = 2^(-2 * k - 2)), color = "") +
+  geom_line(aes(y = 2^(-2 * k - 2))) +
   labs(
     x = "x",
-    y = "log10 of the 1-norm distance over entire domain"
-  )
+    y = "log10 of the 1-norm distance over domain [0,1]"
+  ) +
+  ggtitle("Plot of the accuracy of ϕ_k over [0,1]") -> Phi_k_diff_plot
+ggsave("Phi_k_properties/Phi_k_diff.png", plot = Phi_k_diff_plot, width = 6, height = 5, units = "in")
 
 vectorized_Phi_k <- Vectorize(Phi_k)
 vectorized_param <- Vectorize(param)

@@ -1,29 +1,26 @@
 #' Function to generate a random matrix with specified dimensions
 #'
-#' @param rows
-#' @param cols
+#' @param rows number of rows
+#' @param cols number of columns
 #'
-#' @return
-#' @export
-#'
-#' @examples
+#' @return a random matrix of dimension rows times columns with elements from
+#' a standdard normal distribution
+
 generate_random_matrix <- function(rows, cols) {
-  return <- (rows * cols) |>
-    matrix(rows, cols)
-  return(return)
+  (rows * cols) |>
+    rnorm() |>
+    matrix(rows, cols) -> result
+  return(result)
 }
 
 # Function to create a list of lists for neural network layers
-#' Title
 #'
-#' @param layer_architecture
+#' @param layer_architecture a tuple specifying the width of each layer
 #'
-#' @return
-#' @export
-#'
-#' @examples
+#' @return an ordered list of ordered pairs of (W,d)
+
 create_neural_network <- function(layer_architecture) {
-  L <- layer_architecture |> length()
+  layer_architecture |> length() -> L
 
   # Initialize the list of lists
   neural_network <- list()

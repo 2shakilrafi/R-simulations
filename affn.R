@@ -8,7 +8,7 @@
 aff <- function(W, b) {
   if (W |> is.matrix() == FALSE) W |> matrix()
   if (b |> is.matrix() == FALSE) b |> matrix()
-  
+
   return(list(list(W = W, b = b)))
 }
 

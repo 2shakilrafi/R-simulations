@@ -42,6 +42,8 @@ fig <- plot_ly(
 
 fig
 
+library(ggplot2)
+
 Sqr_data_aux <- expand.grid(
   q = seq(2, 10, length.out = 100),
   eps = seq(0.01, 4, length.out = 100)
@@ -53,56 +55,60 @@ for (k in 1:10000) {
   Sqr_data_aux$param[k] <- Sqr(Sqr_data_aux$q[k], Sqr_data_aux$eps[k]) |> param()
 }
 
-ggplot(Sqr_data_aux, aes(x = q, y = eps, z = param)) +
-  geom_contour_filled() + 
-  theme_minimal() + 
+experimental_params <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = param)) +
+  geom_contour_filled() +
+  theme_minimal() +
   scale_y_log10() +
   labs(fill = "#Number of parameters")
-  
+
 Sqr_data_aux$dep <- 0
 
 for (k in 1:10000) {
-  Sqr_data_aux$dep[k] <- Sqr(Sqr_data_aux[k,]$q, Sqr_data_aux[k,]$eps) |> dep()
+  Sqr_data_aux$dep[k] <- Sqr(Sqr_data_aux[k, ]$q, Sqr_data_aux[k, ]$eps) |> dep()
 }
 
-ggplot(Sqr_data_aux, aes(x = q, y = eps, z = dep)) +
-  geom_contour_filled(alpha = 0.8, breaks = seq(0,4,1)) + 
+experimental_deps <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = dep)) +
+  geom_contour_filled(alpha = 0.8, breaks = seq(0, 4, 1)) +
   scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Sqr_data_aux$dep), by = 1)) +
-  theme_minimal() + 
+  theme_minimal() +
   labs(fill = "Depth")
 
-param_upper_limit <- function(q,eps) {
-  (((40 * q)/(q - 2)) * ((1/eps) |> log(2)) + 80/(q - 2) - 28) |> max(52)
+param_upper_limit <- function(q, eps) {
+  (((40 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)
 }
 
-dep_upper_limit <- function(q,eps) {
-  ((q/(2*q-4)) * log2(1/eps) + 1/(q-2) + 1/(q-2) + 1) |> max(2)
+dep_upper_limit <- function(q, eps) {
+  ((q / (2 * q - 4)) * log2(1 / eps) + 1 / (q - 2) + 1 / (q - 2) + 1) |> max(2)
 }
 
 Sqr_data_aux$param_upper_limit <- 0
 
 for (k in 1:10000) {
-  Sqr_data_aux$param_upper_limit[k] <- param_upper_limit(Sqr_data_aux[k,]$q, Sqr_data_aux[k,]$eps) |> 
+  Sqr_data_aux$param_upper_limit[k] <- param_upper_limit(Sqr_data_aux[k, ]$q, Sqr_data_aux[k, ]$eps) |>
     ceiling()
 }
 
-ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(param_upper_limit))) +
-  geom_contour_filled()+ 
-  theme_minimal() + 
+param_theoretical_upper_limits <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(param_upper_limit))) +
+  geom_contour_filled() +
+  theme_minimal() +
   scale_y_log10() +
   labs(fill = "Log10 upper limits of parameters")
 
 Sqr_data_aux$dep_upper_limit <- 0
 
 for (k in 1:10000) {
-  Sqr_data_aux$dep_upper_limit[k] <- dep_upper_limit(Sqr_data_aux[k,]$q, Sqr_data_aux[k,]$eps) |> 
+  Sqr_data_aux$dep_upper_limit[k] <- dep_upper_limit(Sqr_data_aux[k, ]$q, Sqr_data_aux[k, ]$eps) |>
     ceiling()
 }
 
-ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
-  geom_contour_filled()+ 
-  theme_minimal() + 
+dep_theoretical_upper_limits <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
+  geom_contour_filled() +
+  theme_minimal() +
   scale_y_log10() +
   labs(fill = "Log10 upper limits of depth")
 
+ggsave("Sqr_properties/param_theoretical_upper_limits.png", plot = param_theoretical_upper_limits, width = 6, height = 5, units = "in")
+ggsave("Sqr_properties/dep_theoretical_upper_limits.png", plot = dep_theoretical_upper_limits, width = 6, height = 5, units = "in")
+ggsave("Sqr_properties/experimental_deps.png", plot = experimental_deps, width = 6, height = 5, units = "in")
+ggsave("Sqr_properties/experimental_params.png", plot = experimental_params, width = 6, height = 5, units = "in")

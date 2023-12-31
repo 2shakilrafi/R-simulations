@@ -36,6 +36,3 @@ rlz <- function(neural_network, activation_function, x) {
     neural_network[[length(neural_network)]]$b
   return(output)
 }
-
-
-

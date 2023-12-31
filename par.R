@@ -1,8 +1,10 @@
 create_block_diagonal <- function(matrix1, matrix2) {
+
   n1 <- nrow(matrix1)
   n2 <- nrow(matrix2)
   m1 <- ncol(matrix1)
   m2 <- ncol(matrix2)
+
 
   # Create a block diagonal matrix
   block_diagonal_matrix <- 0 |> matrix(n1 + n2, m1 + m2)
@@ -14,10 +16,11 @@ create_block_diagonal <- function(matrix1, matrix2) {
 }
 
 par <- function(nu, mu) {
+ 
   parallelized_network <- list()
   for (i in 1:length(nu)) {
-    parallelized_W <- create_block_diagonal(nu[[i]]$W, mu[[i]]$W)
-    parallelized_b <- rbind(nu[[i]]$b, mu[[i]]$b)
+    parallelized_W <- create_block_diagonal(nu[[i]][[1]], mu[[i]][[1]])
+    parallelized_b <- rbind(nu[[i]][[2]], mu[[i]][[2]])
     parallelized_network[[i]] <-
       list(W = parallelized_W, b = parallelized_b)
   }

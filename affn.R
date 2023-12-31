@@ -6,8 +6,8 @@
 #' @return returns the network ((W,b)) representing an affine neural network
 
 aff <- function(W, b) {
-  if (W |> is.matrix() == FALSE) W |> matrix()
-  if (b |> is.matrix() == FALSE) b |> matrix()
+  if (W |> is.matrix() == FALSE) (W = W |> matrix())
+  if (b |> is.matrix() == FALSE) (b = b |> matrix())
 
   return(list(list(W = W, b = b)))
 }

@@ -1,7 +1,7 @@
 source("Pwr.R")
 
-Pwr_3_diff <- function(q, eps, x) {
-  return <- (Pwr_3(q, eps) |> rlz(ReLU, x) - x^2) |> abs()
+Pwr_3_diff <- function(q, eps, x, exponent = 3) {
+  return <- (Pwr(q, eps, exponent = 3) |> rlz(ReLU, x) - x^3) |> abs()
   return(return)
 }
 
@@ -16,6 +16,13 @@ Pwr_3_data <- expand.grid(
 
 
 Pwr_3_data$diff <- Pwr_3_diff_v(Pwr_3_data$q, Pwr_3_data$eps, Pwr_3_data$x)
+
+library(ggplot2)
+
+ggplot(Pwr_3_data, aes(diff)) +
+  scale_x_log10() +
+  geom_density() + 
+  theme_minimal()
 
 library(plotly)
 
@@ -39,8 +46,6 @@ fig <- plot_ly(
 
 fig
 
-library(ggplot2)
-
 Pwr_3_data_aux <- expand.grid(
   q = seq(2, 10, length.out = 100),
   eps = seq(0.01, 4, length.out = 100)
@@ -49,7 +54,7 @@ Pwr_3_data_aux <- expand.grid(
 Pwr_3_data_aux$param <- 0
 
 for (k in 1:10000) {
-  Pwr_3_data_aux$param[k] <- Pwr_3(Pwr_3_data_aux$q[k], Pwr_3_data_aux$eps[k]) |> param()
+  Pwr_3_data_aux$param[k] <- Pwr(Pwr_3_data_aux$q[k], Pwr_3_data_aux$eps[k], exponent = 3) |> param()
 }
 
 experimental_params <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = param)) +
@@ -61,11 +66,11 @@ experimental_params <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = param)) +
 Pwr_3_data_aux$dep <- 0
 
 for (k in 1:10000) {
-  Pwr_3_data_aux$dep[k] <- Pwr_3(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps) |> dep()
+  Pwr_3_data_aux$dep[k] <- Pwr(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps, exponent = 3) |> dep()
 }
 
 experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
-  geom_contour_filled(alpha = 0.8, breaks = seq(0, 4, 1)) +
+  geom_contour_filled(alpha = 0.8, breaks = seq(0, 10, 1)) +
   scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Pwr_3_data_aux$dep), by = 1)) +
   theme_minimal() +

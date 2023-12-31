@@ -1,0 +1,111 @@
+source("Pwr.R")
+
+Pwr_3_diff <- function(q, eps, x) {
+  return <- (Pwr_3(q, eps) |> rlz(ReLU, x) - x^2) |> abs()
+  return(return)
+}
+
+Pwr_3_diff_v <- Vectorize(Pwr_3_diff)
+
+Pwr_3_data <- expand.grid(
+  q = seq(2.0, 4, length.out = 50),
+  eps = seq(0.0, 2, length.out = 50),
+  x = seq(-5, 5, length.out = 50)
+)
+
+
+
+Pwr_3_data$diff <- Pwr_3_diff_v(Pwr_3_data$q, Pwr_3_data$eps, Pwr_3_data$x)
+
+library(plotly)
+
+fig <- plot_ly(
+  type = "isosurface",
+  x = Pwr_3_data$x,
+  y = Pwr_3_data$q,
+  z = Pwr_3_data$eps,
+  value = Pwr_3_data$diff,
+  isomin = 0.0001,
+  isomax = 5,
+  colorscale = "RdBu"
+) |>
+  layout(scene = list(
+    xaxis = list(title = "x"),
+    yaxis = list(title = "q"),
+    zaxis = list(title = "eps")
+  )) |>
+  layout(scene = list(legend = list(title = "Diff from x^2"))) |>
+  layout(title = "Isosurface plot of 1-norm error vs parameters")
+
+fig
+
+library(ggplot2)
+
+Pwr_3_data_aux <- expand.grid(
+  q = seq(2, 10, length.out = 100),
+  eps = seq(0.01, 4, length.out = 100)
+)
+
+Pwr_3_data_aux$param <- 0
+
+for (k in 1:10000) {
+  Pwr_3_data_aux$param[k] <- Pwr_3(Pwr_3_data_aux$q[k], Pwr_3_data_aux$eps[k]) |> param()
+}
+
+experimental_params <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = param)) +
+  geom_contour_filled() +
+  theme_minimal() +
+  scale_y_log10() +
+  labs(fill = "#Number of parameters")
+
+Pwr_3_data_aux$dep <- 0
+
+for (k in 1:10000) {
+  Pwr_3_data_aux$dep[k] <- Pwr_3(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps) |> dep()
+}
+
+experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
+  geom_contour_filled(alpha = 0.8, breaks = seq(0, 4, 1)) +
+  scale_y_log10() +
+  # scale_fill_continuous(breaks = seq(0, max(Pwr_3_data_aux$dep), by = 1)) +
+  theme_minimal() +
+  labs(fill = "Depth")
+
+param_upper_limit <- function(q, eps) {
+  (((40 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)
+}
+
+dep_upper_limit <- function(q, eps) {
+  ((q / (2 * q - 4)) * log2(1 / eps) + 1 / (q - 2) + 1 / (q - 2) + 1) |> max(2)
+}
+
+Pwr_3_data_aux$param_upper_limit <- 0
+
+for (k in 1:10000) {
+  Pwr_3_data_aux$param_upper_limit[k] <- param_upper_limit(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps) |>
+    ceiling()
+}
+
+param_theoretical_upper_limits <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(param_upper_limit))) +
+  geom_contour_filled() +
+  theme_minimal() +
+  scale_y_log10() +
+  labs(fill = "Log10 upper limits of parameters")
+
+Pwr_3_data_aux$dep_upper_limit <- 0
+
+for (k in 1:10000) {
+  Pwr_3_data_aux$dep_upper_limit[k] <- dep_upper_limit(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps) |>
+    ceiling()
+}
+
+dep_theoretical_upper_limits <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
+  geom_contour_filled() +
+  theme_minimal() +
+  scale_y_log10() +
+  labs(fill = "Log10 upper limits of depth")
+
+ggsave("Pwr_3_properties/param_theoretical_upper_limits.png", plot = param_theoretical_upper_limits, width = 6, height = 5, units = "in")
+ggsave("Pwr_3_properties/dep_theoretical_upper_limits.png", plot = dep_theoretical_upper_limits, width = 6, height = 5, units = "in")
+ggsave("Pwr_3_properties/experimental_deps.png", plot = experimental_deps, width = 6, height = 5, units = "in")
+ggsave("Pwr_3_properties/experimental_params.png", plot = experimental_params, width = 6, height = 5, units = "in")

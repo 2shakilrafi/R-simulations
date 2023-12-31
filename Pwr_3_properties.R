@@ -77,11 +77,16 @@ experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
   labs(fill = "Depth")
 
 param_upper_limit <- function(q, eps) {
-  (((40 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)
+  first_summand <- param(Prd(q,eps))
+  second_summand <- param(Pwr(q, eps, 2)) + 2 * param(Pwr(q,eps,2)) * (Pwr(q,eps, 2) |> dep() |> Tun() |> param()) +
+    (Pwr(q,eps, 2) |> dep() |> Tun() |> param())^2
+  third_summand <- 24
+  result <- first_summand + 0.5 * second_summand + third_summand
+  return(result)
 }
 
 dep_upper_limit <- function(q, eps) {
-  ((q / (2 * q - 4)) * log2(1 / eps) + 1 / (q - 2) + 1 / (q - 2) + 1) |> max(2)
+  ((q / (q - 2)) * (log2(1 / eps) + q) - 1) * 3 + 1
 }
 
 Pwr_3_data_aux$param_upper_limit <- 0
@@ -100,14 +105,13 @@ param_theoretical_upper_limits <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z =
 Pwr_3_data_aux$dep_upper_limit <- 0
 
 for (k in 1:10000) {
-  Pwr_3_data_aux$dep_upper_limit[k] <- dep_upper_limit(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps) |>
-    ceiling()
+  Pwr_3_data_aux$dep_upper_limit[k] <- dep_upper_limit(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps)
 }
 
 dep_theoretical_upper_limits <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
+  scale_y_log10() +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log10 upper limits of depth")
 
 ggsave("Pwr_3_properties/param_theoretical_upper_limits.png", plot = param_theoretical_upper_limits, width = 6, height = 5, units = "in")

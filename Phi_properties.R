@@ -20,7 +20,9 @@ library(ggplot2)
 ggplot(diff_data, aes(x = x, y = eps, z = Phi_diff)) +
   geom_contour_filled() +
   ggtitle("Contour plot of the 1-norm difference for values of x and eps") +
-  theme_minimal()
+  theme_minimal() -> Phi_diff_contour_plot
+
+ggsave("Phi_properties/Phi_diff_contour.png", plot = Phi_diff_contour_plot, width = 6, height = 5, units = "in")
 
 vectorized_Phi_k <- Vectorize(Phi_k)
 vectorized_param <- Vectorize(param)

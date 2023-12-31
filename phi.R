@@ -33,5 +33,3 @@ Phi <- function(eps) {
     return(return_network)
   }
 }
-
-

@@ -27,4 +27,3 @@ Sqr <- function(q, eps) {
 }
 
 Sqr_v <- Vectorize(Sqr)
-

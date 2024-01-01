@@ -23,7 +23,6 @@ Prd_data$xy <- Prd_data$x * Prd_data$y
 Prd_data$diff <- Prd_diff_v(Prd_data$q, Prd_data$eps, Prd_data$x, Prd_data$y)
 
 
-
 library(plotly)
 
 fig <- plot_ly(

@@ -20,6 +20,14 @@ Sqr_data <- expand.grid(
 
 Sqr_data$diff <- Sqr_diff_v(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
 
+diff_upper_limit <- function (q, eps, x) {
+  eps * max(1, abs(x)^q)
+}
+
+diff_upper_limit_v <- Vectorize(diff_upper_limit)
+
+Sqr_data$diff_upper_limit <- diff_upper_limit_v(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
+
 library(plotly)
 
 fig <- plot_ly(

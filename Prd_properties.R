@@ -12,7 +12,7 @@ source("Prd.R")
 #' @param y one of the factors in the product
 #'
 #' @return The 1-norm error over \mathbb{R} between xy and the approximation
-#' given by Prd.
+#' given by Prd.network
 #
 Prd_diff <- function(q, eps, x,y) {
   ((Prd(q, eps)) |> rlz(ReLU, c(x,y)) - x*y) |> abs() -> result

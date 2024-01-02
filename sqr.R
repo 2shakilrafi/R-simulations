@@ -5,6 +5,13 @@ source("nn_sum.R")
 source("Phi.R")
 source("aux_fun.R")
 
+#' The Sqr network
+#'
+#' @param q parameter for the Sqr network
+#' @param eps parameter for the Sqr network
+#'
+#' @return a neural network that approximates the square of a real number.
+
 Sqr <- function(q, eps) {
   delta <- 2^(-2 / (q - 2)) * eps^(q / (q - 2))
   alpha <- (eps / 2)^(1 / (q - 2))

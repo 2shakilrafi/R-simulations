@@ -1,5 +1,12 @@
 source("Pwr.R")
 
+#' Pwr_3_diff function
+#'
+#' @param q parameter for Pwr_3
+#' @param eps parameter for Pwr_3
+#' @param x the number to be cubed
+#' @param exponent = 3, i.e. cubing a number
+
 Pwr_3_diff <- function(q, eps, x, exponent = 3) {
   return <- (Pwr(q, eps, exponent = 3) |> rlz(ReLU, x) - x^3) |> abs()
   return(return)
@@ -76,6 +83,13 @@ experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
   theme_minimal() +
   labs(fill = "Depth")
 
+#' The param_upper_limit funnction
+#'
+#' @param q parameter for the Pwr network
+#' @param eps parameter for the Pwr network
+#'
+#' @return the theoretical upper limit for the number of parameters
+
 param_upper_limit <- function(q, eps) {
   first_summand <- param(Prd(q,eps))
   second_summand <- param(Pwr(q, eps, 2)) + 2 * param(Pwr(q,eps,2)) * (Pwr(q,eps, 2) |> dep() |> Tun() |> param()) +
@@ -84,6 +98,13 @@ param_upper_limit <- function(q, eps) {
   result <- first_summand + 0.5 * second_summand + third_summand
   return(result)
 }
+
+#' The dep_upper_limit function
+#'
+#' @param q parameter for the Pwr_3 network
+#' @param eps parameter for the Pwr_3 network
+#'
+#' @return the theoretical upper limit for the depth
 
 dep_upper_limit <- function(q, eps) {
   ((q / (q - 2)) * (log2(1 / eps) + q) - 1) * 3 + 1

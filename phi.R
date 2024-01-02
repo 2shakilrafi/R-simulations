@@ -3,11 +3,22 @@ source("i.R")
 source("affn.R")
 
 
+#' The Phi function
+#'
+#' @param eps parameter for Phi
+#' @references Grohs, P., Hornung, F., Jentzen, A. et al. 
+#' Space-time error estimates for deep neural network approximations 
+#' for differential equations. Adv Comput Math 49, 4 (2023). 
+#' https://doi.org/10.1007/s10444-022-09970-2
+#'
+#' @return neural network Phi that approximately squares a number between
+#' 0 and 1.
+
 Phi <- function(eps) {
   M <- (0.5 * log2(1 / eps) - 1) |>
     ceiling()
 
-  M <- if (M <= 0 || is.infinite(M)) 1 else M
+  M <- if (M <= 0) 1 else M
 
   if (M == 1) {
     return_network <- C_k(1) |>

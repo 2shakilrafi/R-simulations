@@ -99,9 +99,23 @@ experimental_deps <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = dep)) +
   theme_minimal() +
   labs(fill = "Depth")
 
+#' The param_upper_limit function
+#'
+#' @param q parmeter for the Prd network
+#' @param eps parameter for the Prd network
+#'
+#' @return the theoretical upper limit for the number of parameters
+
 param_upper_limit <- function(q, eps) {
   (((40 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)
 }
+
+#' The dep_upper_limit function
+#'
+#' @param q parameter for the Prd network
+#' @param eps parameter for the Prd network
+#'
+#' @return the theoretical upper limit for depth
 
 dep_upper_limit <- function(q, eps) {
   ((q / (2 * q - 4)) * log2(1 / eps) + 1 / (q - 2) + 1 / (q - 2) + 1) |> max(2)

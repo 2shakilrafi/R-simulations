@@ -3,6 +3,14 @@ source("Sqr.R")
 source("realization.R")
 source("activations.R")
 
+#' Sqr_diff function
+#'
+#' @param q parameter for the Sqr network
+#' @param eps parameter for the Sqr network
+#' @param x the number to be squered
+#'
+#' @return a neural network that approximately squares x.
+
 Sqr_diff <- function(q, eps, x) {
   return <- (Sqr(q, eps) |> rlz(ReLU, x) - x^2) |> abs()
   return(return)
@@ -19,6 +27,15 @@ Sqr_data <- expand.grid(
 
 
 Sqr_data$diff <- Sqr_diff_v(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
+
+#' Function to calculate the theoretical upper bounds of the 1-norm error 
+#' over \mathbb{R}
+#'
+#' @param q parameter for the Sqr network
+#' @param eps parameter for the Sqr network
+#' @param x the number to be squered
+#'
+#' @return the maximum 1-norm error over \mathbb{R}
 
 diff_upper_limit <- function (q, eps, x) {
   eps * max(1, abs(x)^q)

@@ -1,6 +1,22 @@
 source("aux_fun.R")
 
-# The composition script that takes two nn and reutrns their compositio
+#' The %•% function
+#'
+#' @param phi_1 
+#' @param phi_2 
+#'
+#' @return the composed neural network
+#' 
+#' @references Grohs, P., Hornung, F., Jentzen, A. et al. 
+#' Space-time error estimates for deep neural network approximations 
+#' for differential equations. Adv Comput Math 49, 4 (2023). 
+#' https://doi.org/10.1007/s10444-022-09970-2
+#' 
+#' @remark Note that we have two versions of this function, a unicode
+#' infix version for close resemblance to mathematical notation and 
+#' prefix version comp()
+#' 
+#' @encoding utf8
 
 `%•%` <- function(phi_1, phi_2) {
   L <- dep(phi_1)
@@ -52,7 +68,6 @@ source("aux_fun.R")
 
 
   if (L == 1 & L_ == 1) {
-    # first
     composed_network <- list()
     W <- phi_1[[1]]$W %*% phi_2[[1]]$W
     b <- phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b

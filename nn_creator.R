@@ -5,6 +5,7 @@
 #'
 #' @return a random matrix of dimension rows times columns with elements from
 #' a standdard normal distribution
+#' @references 
 
 generate_random_matrix <- function(rows, cols) {
   (rows * cols) |>

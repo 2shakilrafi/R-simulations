@@ -1,12 +1,14 @@
-#' ---
-#' title: "Scalar Multiplication of Neural Networks"
-#' author: "Shakil Rafi"
-#' output: pdf_document
-#' ---
-
 
 source("comp.R")
 source("aux_fun.R")
+
+#' The left and right scalar multiplication fuctions
+#'
+#' @param a a real number
+#' @param nu a neural network
+#'
+#' @return returns a neural network that realizes as a.f(x) and f(a.x) 
+#' under ReLU activation respectively
 
 `%|>%` <- function(a, nu) {
   constant_matrix_size <- nu |> out()

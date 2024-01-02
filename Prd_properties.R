@@ -4,6 +4,16 @@ source("realization.R")
 source("activations.R")
 source("Prd.R")
 
+#' The Prd_diff function
+#'
+#' @param q parameter for Prd function
+#' @param eps parameter for Prd function
+#' @param x one of the factors in the product
+#' @param y one of the factors in the product
+#'
+#' @return The 1-norm error over \mathbb{R} between xy and the approximation
+#' given by Prd.
+#
 Prd_diff <- function(q, eps, x,y) {
   ((Prd(q, eps)) |> rlz(ReLU, c(x,y)) - x*y) |> abs() -> result
   return(result)

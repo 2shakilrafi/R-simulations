@@ -15,7 +15,7 @@ A_3 <- c(0, 1) |> matrix(1, 2)
 #' @param eps parameter for Prd
 #'
 #' @return A neural network that takes in x and y and approximately 
-#' returns xy with ReLU activation
+#' returns xy under ReLU activation
 
 Prd <- function(q, eps) {
   return_network <- ((1 / 2) %|>% (Sqr(q, eps) %•% aff(A_1, 0))) |>

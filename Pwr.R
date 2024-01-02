@@ -6,11 +6,11 @@ source("aux_fun.R")
 
 #' The Pwr function
 #'
-#' @param q paremater for the Pwr network
+#' @param q parameter for the Pwr network
 #' @param eps parameter for the Pwr network
 #' @param exponent the exponent which the Pwr network will approximate
 #'
-#' @return a neural network that aproximates raising a number to exponent
+#' @return a neural network that approximates raising a number to exponent
 #' under ReLU activation
 
 Pwr <- function(q,eps, exponent) {

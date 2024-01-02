@@ -3,7 +3,7 @@ source("Id.R")
 
 #' The Tunneling Neural Network
 #'
-#' @param n: The depth of the tunnel network
+#' @param n: The depth of the tunnel network where n >= 1
 #'
 #' @return a tunnel neural network of depth n.
 

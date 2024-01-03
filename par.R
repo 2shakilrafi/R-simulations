@@ -1,3 +1,11 @@
+#' Function for creating a block diagonal
+#'
+#' @param matrix1 
+#' @param matrix2 
+#'
+#' @return a block diagonal matrix with matrix1 on top left
+#' and matrix2 on bottom right
+
 create_block_diagonal <- function(matrix1, matrix2) {
 
   n1 <- nrow(matrix1)
@@ -15,14 +23,23 @@ create_block_diagonal <- function(matrix1, matrix2) {
   return(block_diagonal_matrix)
 }
 
+#' The parallelization function
+#'
+#' @param nu neural network
+#' @param mu neural network
+#'
+#' @return parallelized neural network
+
 par <- function(nu, mu) {
  
-  parallelized_network <- list()
-  for (i in 1:length(nu)) {
-    parallelized_W <- create_block_diagonal(nu[[i]][[1]], mu[[i]][[1]])
-    parallelized_b <- rbind(nu[[i]][[2]], mu[[i]][[2]])
-    parallelized_network[[i]] <-
-      list(W = parallelized_W, b = parallelized_b)
-  }
-  return(parallelized_network)
+  if (dep(nu) == dep(mu)) {
+    parallelized_network <- list()
+    for (i in 1:length(nu)) {
+      parallelized_W <- create_block_diagonal(nu[[i]]$W, mu[[i]]$W)
+      parallelized_b <- rbind(nu[[i]]$b, mu[[i]]$b)
+      parallelized_network[[i]] <-
+        list(W = parallelized_W, b = parallelized_b)
+    }
+    return(parallelized_network)
+  } 
 }

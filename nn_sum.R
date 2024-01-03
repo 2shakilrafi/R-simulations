@@ -26,10 +26,12 @@ source("affn.R")
 
 nn_sum <- function(nu_1, nu_2) {
   first_third <- cpy(2, inn(nu_1))
-  mid_third <- nu_1 |>  par(nu_2)
+  mid_third <- nu_1 |> par(nu_2)
   last_third <- sm(2, out(nu_1))
 
-  return_network <- last_third |> comp(mid_third) |> comp(first_third)
+  return_network <- last_third |>
+    comp(mid_third) |>
+    comp(first_third)
 
   return(return_network)
 }

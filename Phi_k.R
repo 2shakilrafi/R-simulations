@@ -8,11 +8,11 @@ source("activations.R")
 #' The c_k function
 #'
 #' @param k an integer between (2,\inf)
-#' 
+#'
 #' @return the real number 2^{1-2k}
-#' @references Grohs, P., Hornung, F., Jentzen, A. et al. 
-#' Space-time error estimates for deep neural network approximations 
-#' for differential equations. Adv Comput Math 49, 4 (2023). 
+#' @references Grohs, P., Hornung, F., Jentzen, A. et al.
+#' Space-time error estimates for deep neural network approximations
+#' for differential equations. Adv Comput Math 49, 4 (2023).
 #' https://doi.org/10.1007/s10444-022-09970-2
 
 c_k <- function(k) {
@@ -54,11 +54,11 @@ A <- function() {
 #' @param k an integer between (2,\inf)
 #'
 #' @return The Phi_k neural network
-#' @references Grohs, P., Hornung, F., Jentzen, A. et al. 
-#' Space-time error estimates for deep neural network approximations 
-#' for differential equations. Adv Comput Math 49, 4 (2023). 
+#' @references Grohs, P., Hornung, F., Jentzen, A. et al.
+#' Space-time error estimates for deep neural network approximations
+#' for differential equations. Adv Comput Math 49, 4 (2023).
 #' https://doi.org/10.1007/s10444-022-09970-2
-#' 
+#'
 Phi_k <- function(k) {
   if (k == 1) {
     return_network <- C_k(1) |>

@@ -14,7 +14,7 @@ A_3 <- c(0, 1) |> matrix(1, 2)
 #' @param q parameter for Prd
 #' @param eps parameter for Prd
 #'
-#' @return A neural network that takes in x and y and approximately 
+#' @return A neural network that takes in x and y and approximately
 #' returns xy under ReLU activation
 
 Prd <- function(q, eps) {

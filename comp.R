@@ -2,20 +2,20 @@ source("aux_fun.R")
 
 #' The %•% function
 #'
-#' @param phi_1 
-#' @param phi_2 
+#' @param phi_1
+#' @param phi_2
 #'
 #' @return the composed neural network
-#' 
-#' @references Grohs, P., Hornung, F., Jentzen, A. et al. 
-#' Space-time error estimates for deep neural network approximations 
-#' for differential equations. Adv Comput Math 49, 4 (2023). 
+#'
+#' @references Grohs, P., Hornung, F., Jentzen, A. et al.
+#' Space-time error estimates for deep neural network approximations
+#' for differential equations. Adv Comput Math 49, 4 (2023).
 #' https://doi.org/10.1007/s10444-022-09970-2
-#' 
+#'
 #' @remark Note that we have two versions of this function, a unicode
-#' infix version for close resemblance to mathematical notation and 
+#' infix version for close resemblance to mathematical notation and
 #' prefix version comp()
-#' 
+#'
 #' @encoding utf8
 
 `%•%` <- function(phi_1, phi_2) {

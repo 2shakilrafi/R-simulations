@@ -15,7 +15,6 @@ diff <- function(eps, x) {
   (x^2 - eps |> Phi() |> rlz(ReLU, x)) |>
     abs() -> result
   return(result)
-  
 }
 
 eps_values <- c(1, 0.5, 0.1, 0.01, 0.001, 0.0001)

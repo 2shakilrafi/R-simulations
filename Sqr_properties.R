@@ -28,7 +28,7 @@ Sqr_data <- expand.grid(
 
 Sqr_data$diff <- Sqr_diff_v(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
 
-#' Function to calculate the theoretical upper bounds of the 1-norm error 
+#' Function to calculate the theoretical upper bounds of the 1-norm error
 #' over \mathbb{R}
 #'
 #' @param q parameter for the Sqr network
@@ -37,7 +37,7 @@ Sqr_data$diff <- Sqr_diff_v(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
 #'
 #' @return the maximum 1-norm error over \mathbb{R}
 
-diff_upper_limit <- function (q, eps, x) {
+diff_upper_limit <- function(q, eps, x) {
   eps * max(1, abs(x)^q)
 }
 

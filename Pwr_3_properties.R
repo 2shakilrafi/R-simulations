@@ -28,7 +28,7 @@ library(ggplot2)
 
 ggplot(Pwr_3_data, aes(diff)) +
   scale_x_log10() +
-  geom_density() + 
+  geom_density() +
   theme_minimal()
 
 library(plotly)
@@ -91,9 +91,9 @@ experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
 #' @return the theoretical upper limit for the number of parameters
 
 param_upper_limit <- function(q, eps) {
-  first_summand <- param(Prd(q,eps))
-  second_summand <- param(Pwr(q, eps, 2)) + 2 * param(Pwr(q,eps,2)) * (Pwr(q,eps, 2) |> dep() |> Tun() |> param()) +
-    (Pwr(q,eps, 2) |> dep() |> Tun() |> param())^2
+  first_summand <- param(Prd(q, eps))
+  second_summand <- param(Pwr(q, eps, 2)) + 2 * param(Pwr(q, eps, 2)) * (Pwr(q, eps, 2) |> dep() |> Tun() |> param()) +
+    (Pwr(q, eps, 2) |> dep() |> Tun() |> param())^2
   third_summand <- 24
   result <- first_summand + 0.5 * second_summand + third_summand
   return(result)

@@ -1,4 +1,3 @@
-
 source("comp.R")
 source("aux_fun.R")
 
@@ -7,7 +6,7 @@ source("aux_fun.R")
 #' @param a a real number
 #' @param nu a neural network
 #'
-#' @return returns a neural network that realizes as a.f(x) and f(a.x) 
+#' @return returns a neural network that realizes as a.f(x) and f(a.x)
 #' under ReLU activation respectively
 
 `%|>%` <- function(a, nu) {

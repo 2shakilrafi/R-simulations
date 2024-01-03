@@ -14,8 +14,8 @@ source("Prd.R")
 #' @return The 1-norm error over \mathbb{R} between xy and the approximation
 #' given by Prd.network
 #
-Prd_diff <- function(q, eps, x,y) {
-  ((Prd(q, eps)) |> rlz(ReLU, c(x,y)) - x*y) |> abs() -> result
+Prd_diff <- function(q, eps, x, y) {
+  ((Prd(q, eps)) |> rlz(ReLU, c(x, y)) - x * y) |> abs() -> result
   return(result)
 }
 
@@ -25,7 +25,7 @@ Prd_data <- expand.grid(
   q = seq(2.0, 4, length.out = 20),
   eps = seq(0.0, 2, length.out = 20),
   x = seq(-2, 2, length.out = 20),
-  y = seq(-2,2, length.out = 20)
+  y = seq(-2, 2, length.out = 20)
 )
 
 Prd_data$xy <- Prd_data$x * Prd_data$y
@@ -57,8 +57,8 @@ fig
 
 ggplot(Prd_data, aes(diff)) +
   scale_x_log10() +
-  geom_density(fill = "green", alpha = 0.6) + 
-  theme_minimal() + 
+  geom_density(fill = "green", alpha = 0.6) +
+  theme_minimal() +
   labs(
     x = "log10 error",
     y = "density distribution of error",

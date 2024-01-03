@@ -42,4 +42,9 @@ par <- function(nu, mu) {
     }
     return(parallelized_network)
   } 
+  
+  deeper_network <- ifelse(dep(nu) > dep(mu), nu, mu)
+  
+  padded_network <- 9
+  
 }

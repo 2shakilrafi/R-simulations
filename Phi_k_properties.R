@@ -14,8 +14,8 @@ library(ggplot2)
 
 Phi_k_diff <- function(x, k) {
   return <- (k |> Phi_k() |> rlz(ReLU, x) - x^2) |>
-    abs()
-  return(return)
+    abs() -> result
+  return(result)
 }
 
 k_values <- c(1, 2, 5, 10, 15, 20)

@@ -11,7 +11,7 @@ source("affn.R")
 #'
 #' @return a neural network that is the neural network sum of nu_1 and nu_2
 #'
-#' @remark Note we have two version, an infix version `%⊕%` and a prefix version
+#' @remark Note we have two versions, an infix version `%⊕%` and a prefix version
 #' nn_sum
 
 `%⊕%` <- function(nu_1, nu_2) {

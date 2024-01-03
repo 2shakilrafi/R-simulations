@@ -1,11 +1,9 @@
-#' Title
+#' The i function
 #'
-#' @param d
+#' @param d the size of the i network
 #'
-#' @return
-#' @export
-#'
-#' @examples
+#' @return returns the i_d network
+
 i <- function(d) {
   return_network <- list()
   W <- d |> diag()

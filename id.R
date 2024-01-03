@@ -1,3 +1,7 @@
+#' The Id network
+#'
+#' @return returns the Id network
+
 Id <- function() {
   W_1 <- c(1, -1) |> matrix()
 
@@ -11,7 +15,7 @@ Id <- function() {
 
   layer_2 <- list(W = W_2, b = b_2)
 
-  return <- list(layer_1, layer_2)
+  result <- list(layer_1, layer_2)
 
-  return(return)
+  return(result)
 }

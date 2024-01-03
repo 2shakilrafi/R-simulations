@@ -3,9 +3,19 @@ source("aux_fun.R")
 source("realization.R")
 source("activations.R")
 
+#' The Phi diff function
+#'
+#' @param eps parameter for Phi
+#' @param x number to be squared
+#'
+#' @return the 1-norm error between the result
+#' and x^2
+
 diff <- function(eps, x) {
   (x^2 - eps |> Phi() |> rlz(ReLU, x)) |>
-    abs()
+    abs() -> result
+  return(result)
+  
 }
 
 eps_values <- c(1, 0.5, 0.1, 0.01, 0.001, 0.0001)

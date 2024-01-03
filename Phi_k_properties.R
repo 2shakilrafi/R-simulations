@@ -5,6 +5,13 @@ source("activations.R")
 
 library(ggplot2)
 
+#' The Phi_k_diff function
+#'
+#' @param x the number to be squared in [0,1]
+#' @param k a parameter for Phi_k in [0, \infty)]
+#'
+#' @return the 1-norm error between x^2 and Phi_k approximation
+
 Phi_k_diff <- function(x, k) {
   return <- (k |> Phi_k() |> rlz(ReLU, x) - x^2) |>
     abs()

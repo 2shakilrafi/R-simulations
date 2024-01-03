@@ -67,7 +67,7 @@ param <- function(nu) {
   param_count <- 0
   for (i in 1:length(nu)) {
     param_count <-
-      param_count + length(nu[[i]][[1]]) + length(nu[[i]][[2]])
+      param_count + length(nu[[i]]$W) + length(nu[[i]]$b)
   }
   return(param_count)
 }

@@ -5,6 +5,18 @@
 #'
 #' @return a block diagonal matrix with matrix1 on top left
 #' and matrix2 on bottom right
+#'
+#'@remark: NOTE!! This is different than the one given in Grohs, et. al. 2023.
+#'While we use padding to equalize neural networks being parallelized our
+#'padding is via the Tun network whereas Grohs et. al. uses repetitive 
+#'composition of the i network.
+#'
+source("aux_fun.R")
+source("Tun.R")
+
+
+
+
 
 create_block_diagonal <- function(matrix1, matrix2) {
 

@@ -7,7 +7,5 @@ tolerance <- 0.1
 
 
 Sqr_data |>
-  ggplot(aes(x = x)) +
-  geom_line(aes(y = diff), color = "red") +
-  geom_line(aes(y = diff_upper_limit), color = "blue") +
-  scale_y_log10()
+  na.omit() |>
+  filter(diff == max(diff))

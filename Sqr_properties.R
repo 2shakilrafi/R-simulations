@@ -19,8 +19,8 @@ Sqr_diff <- function(q, eps, x) {
 Sqr_diff_v <- Vectorize(Sqr_diff)
 
 Sqr_data <- expand.grid(
-  q = seq(2.0, 4, length.out = 50),
-  eps = seq(0.0, 2, length.out = 50),
+  q = seq(2.01, 4, length.out = 50),
+  eps = seq(0.01, 2, length.out = 50),
   x = seq(-5, 5, length.out = 50)
 )
 
@@ -134,6 +134,9 @@ dep_theoretical_upper_limits <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log
   labs(fill = "Log10 upper limits of depth")
 
 ggsave("Sqr_properties/param_theoretical_upper_limits.png", plot = param_theoretical_upper_limits, width = 6, height = 5, units = "in")
+
 ggsave("Sqr_properties/dep_theoretical_upper_limits.png", plot = dep_theoretical_upper_limits, width = 6, height = 5, units = "in")
+
 ggsave("Sqr_properties/experimental_deps.png", plot = experimental_deps, width = 6, height = 5, units = "in")
+
 ggsave("Sqr_properties/experimental_params.png", plot = experimental_params, width = 6, height = 5, units = "in")

@@ -25,10 +25,11 @@ Phi_k_diff_v <- Vectorize(Phi_k_diff)
 Phi_k_diff_data <- expand.grid(k = k_values, x = x_values)
 Phi_k_diff_data$diff <- Phi_k_diff_v(Phi_k_diff_data$x, Phi_k_diff_data$k)
 
+library(ggplot2)
 ggplot(Phi_k_diff_data, aes(x = x, y = diff, color = factor(k))) +
   scale_y_log10() +
   geom_line() +
-  geom_line(aes(y = 2^(-2 * k - 2))) +
+  geom_point(aes(y = 2^(-2 * k - 2)), color = "black") +
   labs(
     x = "x",
     y = "log10 of the 1-norm distance over domain [0,1]"

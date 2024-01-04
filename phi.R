@@ -15,32 +15,24 @@ source("affn.R")
 #' 0 and 1.
 
 Phi <- function(eps) {
-  M <- (0.5 * log2(1 / eps) - 1) |>
-    ceiling()
-
-  M <- if (M <= 0) 1 else M
+  (0.5 * log2(1 / eps) - 1) |> ceiling() -> M
+  
+  if (M <= 0) {
+    M <- 1
+  }
 
   if (M == 1) {
-    return_network <- C_k(1) |>
-      aff(0) |>
-      comp(i(4)) |>
-      comp(aff(A(), B()))
+    C_k(1) |> aff(0) |> comp(i(4)) |> comp(aff(A(), B())) -> return_network
     return(return_network)
   }
 
   if (M >= 2) {
-    return_network <- C_k(M) |>
-      aff(0) |>
-      comp(i(4))
+    C_k(M) |> aff(0) |> comp(i(4)) -> return_network
     for (j in (M - 1):1) {
-      intermediate_network <- A_k(j) |>
-        aff(B()) |>
-        comp(i(4))
-      return_network <- return_network |>
-        comp(intermediate_network)
+      A_k(j) |> aff(B()) |> comp(i(4)) -> intermediate_network
+      return_network |> comp(intermediate_network) -> return_network
     }
-    return_network <- return_network |>
-      comp(A() |> aff(B()))
+    return_network |> comp(A() |> aff(B())) -> return_network
     return(return_network)
   }
 }

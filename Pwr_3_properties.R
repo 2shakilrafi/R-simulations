@@ -15,8 +15,8 @@ Pwr_3_diff <- function(q, eps, x, exponent = 3) {
 Pwr_3_diff_v <- Vectorize(Pwr_3_diff)
 
 Pwr_3_data <- expand.grid(
-  q = seq(2.0, 4, length.out = 50),
-  eps = seq(0.0, 2, length.out = 50),
+  q = seq(2.1, 4, length.out = 50),
+  eps = seq(0.01, 2, length.out = 50),
   x = seq(-5, 5, length.out = 50)
 )
 
@@ -54,7 +54,7 @@ fig <- plot_ly(
 fig
 
 Pwr_3_data_aux <- expand.grid(
-  q = seq(2, 10, length.out = 100),
+  q = seq(2.1, 10, length.out = 100),
   eps = seq(0.01, 4, length.out = 100)
 )
 

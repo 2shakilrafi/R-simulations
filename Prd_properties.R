@@ -22,8 +22,8 @@ Prd_diff <- function(q, eps, x, y) {
 Prd_diff_v <- Vectorize(Prd_diff)
 
 Prd_data <- expand.grid(
-  q = seq(2.0, 4, length.out = 20),
-  eps = seq(0.0, 2, length.out = 20),
+  q = seq(2.1, 4, length.out = 20),
+  eps = seq(0.01, 2, length.out = 20),
   x = seq(-2, 2, length.out = 20),
   y = seq(-2, 2, length.out = 20)
 )
@@ -40,9 +40,9 @@ fig <- plot_ly(
   x = Prd_data$xy,
   y = Prd_data$q,
   z = Prd_data$eps,
-  value = Prd_data$diff |> log10(),
+  value = Prd_data$diff,
   isomin = 0.0001,
-  isomax = 5,
+  isomax = 50,
   colorscale = "RdBu"
 ) |>
   layout(scene = list(

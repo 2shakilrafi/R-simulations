@@ -19,7 +19,7 @@ Sqr_diff <- function(q, eps, x) {
 Sqr_diff_v <- Vectorize(Sqr_diff)
 
 Sqr_data <- expand.grid(
-  q = seq(2.01, 4, length.out = 50),
+  q = seq(2.1, 4, length.out = 50),
   eps = seq(0.01, 2, length.out = 50),
   x = seq(-5, 5, length.out = 50)
 )
@@ -44,6 +44,8 @@ diff_upper_limit <- function(q, eps, x) {
 diff_upper_limit_v <- Vectorize(diff_upper_limit)
 
 Sqr_data$diff_upper_limit <- diff_upper_limit_v(Sqr_data$q, Sqr_data$eps, Sqr_data$x)
+
+write_csv(Sqr_data, "Sqr_properties/Sqr_data.csv")
 
 library(plotly)
 
@@ -70,7 +72,7 @@ fig
 library(ggplot2)
 
 Sqr_data_aux <- expand.grid(
-  q = seq(2, 10, length.out = 100),
+  q = seq(2.1, 10, length.out = 100),
   eps = seq(0.01, 4, length.out = 100)
 )
 
@@ -92,8 +94,8 @@ for (k in 1:10000) {
   Sqr_data_aux$dep[k] <- Sqr(Sqr_data_aux[k, ]$q, Sqr_data_aux[k, ]$eps) |> dep()
 }
 
-experimental_deps <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = dep)) +
-  geom_contour_filled(alpha = 0.8, breaks = seq(0, 4, 1)) +
+experimental_deps <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(dep))) +
+  geom_contour_filled(alpha = 0.8) +
   scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Sqr_data_aux$dep), by = 1)) +
   theme_minimal() +

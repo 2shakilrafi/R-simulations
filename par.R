@@ -68,5 +68,4 @@ par <- function(nu, mu) {
     padded_network |> par(mu) -> parallelized_network
     return(parallelized_network)
   }
-
 }

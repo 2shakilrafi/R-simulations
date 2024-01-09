@@ -4,11 +4,5 @@ source("Pwr.R")
 
 library(tidyverse)
 
-Sqr_data |>
-  ggplot(aes(diff)) +
-  geom_density() +
-  geom_density()
 
-Pwr_3_data_aux |>
-  select(param) |> 
-  summary()
+Pwr(2.1,0.1,0) %⊕% Pwr(2.1,0.1,1)

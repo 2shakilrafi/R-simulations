@@ -8,6 +8,9 @@ source("aux_fun.R")
 #'
 #' @return returns a neural network that realizes as a.f(x) and f(a.x)
 #' under ReLU activation respectively
+#' 
+#' @remark Note we will have two kinds of operations, an infix and
+#' a prefix version.
 
 `%|>%` <- function(a, nu) {
   constant_matrix_size <- nu |> out()

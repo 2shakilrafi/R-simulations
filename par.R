@@ -69,3 +69,31 @@ par <- function(nu, mu) {
     return(parallelized_network)
   }
 }
+
+par <- function(nu, mu) {
+  
+  if (dep(nu) == dep(mu)) {
+    parallelized_network <- list()
+    for (i in 1:length(nu)) {
+      parallelized_W <- create_block_diagonal(nu[[i]]$W, mu[[i]]$W)
+      parallelized_b <- rbind(nu[[i]]$b, mu[[i]]$b)
+      parallelized_network[[i]] <-
+        list(W = parallelized_W, b = parallelized_b)
+    }
+    return(parallelized_network)
+  } 
+  
+  if (dep(nu) > dep(mu)) {
+    (dep(nu) - dep(mu) + 1) |> Tun() -> padding
+    padding |> comp(mu) -> padded_network
+    nu |> par(padded_network) -> parallelized_network
+    return(parallelized_network)
+  }
+  
+  if (dep(nu) < dep(mu)) {
+    (dep(mu) - dep(nu) + 1) |> Tun() -> padding
+    padding |> comp(nu) -> padded_network
+    padded_network |> par(mu) -> parallelized_network
+    return(parallelized_network)
+  }
+}

@@ -1,0 +1,14 @@
+---
+title: "paper"
+author: "Shakil Rafi"
+date: "2024-01-09"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## nnR: Neural Networks made Algebraic
+
+We present here *nnR* an R package that

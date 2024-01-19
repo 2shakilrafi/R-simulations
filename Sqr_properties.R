@@ -99,7 +99,8 @@ experimental_deps <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(dep))) +
   scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Sqr_data_aux$dep), by = 1)) +
   theme_minimal() +
-  labs(fill = "Depth")
+  labs(fill = "Log10 of depths")
+
 
 param_upper_limit <- function(q, eps) {
   (((40 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)

@@ -11,7 +11,9 @@ source("Id.R")
 #' @return the neural network that will ouput the maximum when activated
 #' with the ReLU function
 
-#' @examples
+#' @remark Note that because of certain quirks of R we will have split
+#' into five cases. We add an extra case for d == 3. Unlike the paper
+#' we will simply reverse engineer the apropriate d.
 mxm <- function(d) {
   if (d == 1) {
     return(aff(1, 0))
@@ -47,10 +49,6 @@ mxm <- function(d) {
 
   if ((d %% 2 != 0) & (d > 3)) {
     d <- (d - 1) / 2
-
-    # if (d == 1) {
-    #   return(mxm(2) |> par(Id()) |> comp(mxm))
-    # }
 
     first_compose <- mxm(2)
     for (i in 1:(d - 1)) {

@@ -1,8 +1,10 @@
 source("Pwr.R")
 source("nn_sum.R")
 source("scalar_mult.R")
+source("affn.R")
 
 Tay <- function(f, n, q, eps) {
+  
   if(f == "exp") {
     (1/factorial(0)) |> slm(Pwr(q,eps, 0)) -> return_network
     if (n == 0) {
@@ -26,8 +28,11 @@ Tay <- function(f, n, q, eps) {
     }
     return(return_network)
   }
+  
+  if (f == "sin") {
+    Tay("cos", n, q, eps) -> return_network
+    return_network |> comp(aff(1, -pi/2))
+    return(return_network)
+  }
+  
 }
-
-
-
-

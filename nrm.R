@@ -11,7 +11,7 @@ source("nn_sum.R")
 #' size d.under ReLU activation
 #' @remark note that this function is split into two cases
 #' much like the definition itself.
-#' 
+#'
 nrm_1 <- function(d) {
   if (d == 1) {
     W_1 <- c(1, -1) |> matrix()

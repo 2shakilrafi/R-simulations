@@ -1,0 +1,33 @@
+source("Pwr.R")
+source("nn_sum.R")
+source("scalar_mult.R")
+
+Tay <- function(f, n, q, eps) {
+  if(f == "exp") {
+    (1/factorial(0)) |> slm(Pwr(q,eps, 0)) -> return_network
+    if (n == 0) {
+      return(return_network)
+    }
+    for (i in 1:n) {
+      return_network |> nn_sum((1/factorial(i)) |> slm(Pwr(q,eps,i))) -> return_network
+    }
+    return(return_network)
+  }
+  
+  if (f == "cos") {
+    1 |> slm(Pwr(q,eps, 0)) -> return_network
+    if (n == 0) {
+      return(return_network)
+    }
+    
+    for (i in 1:n) {
+      ((-1)^i) / factorial(2*i) -> coeff
+      return_network |> nn_sum(coeff |> slm(Pwr(q, eps, 2*i))) -> return_network
+    }
+    return(return_network)
+  }
+}
+
+
+
+

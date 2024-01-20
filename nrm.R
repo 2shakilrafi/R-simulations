@@ -28,7 +28,7 @@ nrm_1 <- function(d) {
     for (i in 1:(d - 1)) {
       first_compose |> par(nrm_1(1)) -> first_compose
     }
-    sm(d,1) |> comp(first_compose) -> return_network
+    sm(d, 1) |> comp(first_compose) -> return_network
     return(return_network)
   }
 }

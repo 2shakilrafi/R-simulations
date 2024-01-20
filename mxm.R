@@ -45,8 +45,6 @@ mxm <- function(d) {
     return(return_network)
   }
 
-
-
   if ((d %% 2 != 0) & (d > 3)) {
     d <- (d - 1) / 2
 
@@ -60,12 +58,4 @@ mxm <- function(d) {
     mxm(d + 1) |> comp(first_compose) -> return_network
     return(return_network)
   }
-}
-
-for (i in 1:0) {
-  print(i)
-}
-
-for (i in 1:100) {
-  print(mxm(i))
 }

@@ -8,9 +8,10 @@ source("nn_sum.R")
 #' @param d the dimensions of the vector being normed
 #'
 #' @return a neural network that takes the 1-norm of a vector of
-#' size d.
+#' size d.under ReLU activation
 #' @remark note that this function is split into two cases
 #' much like the definition itself.
+#' 
 nrm_1 <- function(d) {
   if (d == 1) {
     W_1 <- c(1, -1) |> matrix()

@@ -4,6 +4,14 @@ source("comp.R")
 source("nn_sum.R")
 source("Id.R")
 
+#' The mxm network
+#'
+#' @param d the dimension of the input
+#'
+#' @return the neural network that will ouput the maximum when activated
+#' with the ReLU function
+
+#' @examples
 mxm <- function(d) {
   if (d == 1) {
     return(aff(1, 0))

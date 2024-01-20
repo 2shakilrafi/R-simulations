@@ -1,11 +1,11 @@
-#' The Trp network that calculates the trapezoidal area 
+#' The Trp network that calculates the trapezoidal area
 #' between two mesh points
 #'
 #' @param h the horizontal distance between two mesh points
 #'
 #' @return the area when activated with ReLU and two meshpoints
 #' x_1 and x_2
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -21,10 +21,10 @@ Trp <- function(h) {
 #' @param n number of trapezoids to make. Note this will result in a set of trapezoids
 #' Note that this will result in n+1 meshpoints including the starting a and
 #' ending b
-#' 
-#' @param h width of trapezoids 
 #'
-#' @return an approximation for area of the integral 
+#' @param h width of trapezoids
+#'
+#' @return an approximation for area of the integral
 #' @export
 #'
 #' @examples

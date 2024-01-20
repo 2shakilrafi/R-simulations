@@ -4,35 +4,33 @@ source("scalar_mult.R")
 source("affn.R")
 
 Tay <- function(f, n, q, eps) {
-  
-  if(f == "exp") {
-    (1/factorial(0)) |> slm(Pwr(q,eps, 0)) -> return_network
+  if (f == "exp") {
+    (1 / factorial(0)) |> slm(Pwr(q, eps, 0)) -> return_network
     if (n == 0) {
       return(return_network)
     }
     for (i in 1:n) {
-      return_network |> nn_sum((1/factorial(i)) |> slm(Pwr(q,eps,i))) -> return_network
+      return_network |> nn_sum((1 / factorial(i)) |> slm(Pwr(q, eps, i))) -> return_network
     }
     return(return_network)
   }
-  
+
   if (f == "cos") {
-    1 |> slm(Pwr(q,eps, 0)) -> return_network
+    1 |> slm(Pwr(q, eps, 0)) -> return_network
     if (n == 0) {
       return(return_network)
     }
-    
+
     for (i in 1:n) {
-      ((-1)^i) / factorial(2*i) -> coeff
-      return_network |> nn_sum(coeff |> slm(Pwr(q, eps, 2*i))) -> return_network
+      ((-1)^i) / factorial(2 * i) -> coeff
+      return_network |> nn_sum(coeff |> slm(Pwr(q, eps, 2 * i))) -> return_network
     }
     return(return_network)
   }
-  
+
   if (f == "sin") {
     Tay("cos", n, q, eps) -> return_network
-    return_network |> comp(aff(1, -pi/2))
+    return_network |> comp(aff(1, -pi / 2))
     return(return_network)
   }
-  
 }

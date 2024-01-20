@@ -3,7 +3,7 @@ source("par.R")
 source("comp.R")
 source("nn_sum.R")
 
-#' The nrm network
+#' The Nrm network
 #'
 #' @param d the dimensions of the vector being normed
 #'

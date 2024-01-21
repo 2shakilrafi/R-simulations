@@ -11,10 +11,8 @@ source("affn.R")
 #' @param q argument for the Pwr networks q \in (2,\infty)
 #' @param eps argument for the Pwr networks eps \in (0,\infty)
 #'
-#' @return
-#' @export
-#'
-#' @examples
+#' @return a neural network that approximates the function f
+
 Tay <- function(f, n, q, eps) {
   if (f == "exp") {
     (1 / factorial(0)) |> slm(Pwr(q, eps, 0)) -> return_network

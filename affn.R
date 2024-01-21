@@ -3,11 +3,11 @@
 #' @param W an m by n matrix representing the weight of the affine neural network
 #' @param b a m by 1 vector representing the bias of the affine neural network
 #'
-#' @return returns the network ((W,b)) representing an affine neural network
+#' @return returns the network \eqn{((W,b))} representing an affine neural network
 
 aff <- function(W, b) {
-  if (W |> is.matrix() == FALSE) (W <- W |> matrix())
-  if (b |> is.matrix() == FALSE) (b <- b |> matrix())
+  if (W |> is.matrix() == FALSE) (W |> matrix() -> W)
+  if (b |> is.matrix() == FALSE) (b |> matrix() -> b)
 
   return(list(list(W = W, b = b)))
 }
@@ -22,11 +22,11 @@ aff <- function(W, b) {
 #' copies of the input vector
 
 cpy <- function(n, k) {
-  W <- k |> diag()
+  k |> diag() -> W
   for (i in 2:n) {
-    W <- W |> rbind(k |> diag())
+    W |> rbind(k |> diag()) -> W
   }
-  b <- 0 |> matrix(n * k)
+  0 |> matrix(n * k) -> b
 
   return(list(list(W = W, b = b)))
 }
@@ -40,10 +40,10 @@ cpy <- function(n, k) {
 #' the summation vector that is of length k
 
 sm <- function(n, k) {
-  W <- k |> diag()
+  k |> diag() -> W
   for (i in 2:n) {
-    W <- W |> cbind(k |> diag())
+    W |> cbind(k |> diag()) -> W
   }
-  b <- 0 |> matrix(k)
+  0 |> matrix(k) -> b
   return(list(list(W = W, b = b)))
 }

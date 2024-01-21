@@ -18,7 +18,7 @@ generate_random_matrix <- function(rows, cols) {
 #'
 #' @param layer_architecture a tuple specifying the width of each layer
 #'
-#' @return an ordered list of ordered pairs of (W,d)
+#' @return an ordered list of ordered pairs of \eqn{(W,d)}
 
 create_neural_network <- function(layer_architecture) {
   layer_architecture |> length() -> L

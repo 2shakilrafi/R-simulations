@@ -5,10 +5,10 @@
 #' @return returns the i_d network
 
 i <- function(d) {
-  return_network <- list()
-  W <- d |> diag()
-  b <- 0 |> matrix(d, 1)
-  return_network[[1]] <- list(W = W, b = b)
-  return_network[[2]] <- list(W = W, b = b)
+  list() -> return_network
+  d |> diag() -> W
+  0 |> matrix(d, 1) -> b
+  list(W = W, b = b) -> return_network[[1]]
+  list(W = W, b = b) -> return_network[[2]]
   return(return_network)
 }

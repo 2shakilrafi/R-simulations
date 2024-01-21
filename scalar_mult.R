@@ -13,41 +13,41 @@ source("aux_fun.R")
 #' a prefix version.
 
 `%|>%` <- function(a, nu) {
-  constant_matrix_size <- nu |> out()
-  multiplier_network <- list()
-  W <- a |> diag(constant_matrix_size)
-  b <- 0 |> matrix(constant_matrix_size)
-  multiplier_network[[1]] <- list(W = W, b = b)
-  return_network <- multiplier_network |> comp(nu)
+  nu |> out() -> constant_matrix_size
+  list() -> multiplier_network
+  a |> diag(constant_matrix_size) -> W
+  0 |> matrix(constant_matrix_size) -> b
+  list(W = W, b = b) -> multiplier_network[[1]]
+  multiplier_network |> comp(nu) -> return_network
   return(return_network)
 }
 
 `%<|%` <- function(nu, a) {
-  constant_matrix_size <- nu |> inn()
-  multiplier_network <- list()
-  W <- a |> diag(constant_matrix_size)
-  b <- 0 |> matrix(constant_matrix_size)
-  multiplier_network[[1]] <- list(W = W, b = b)
-  return_network <- multiplier_network |> comp(nu)
+  nu |> inn() -> constant_matrix_size
+  list() -> multiplier_network
+  a |> diag(constant_matrix_size) -> W
+  0 |> matrix(constant_matrix_size) -> b
+  list(W = W, b = b) -> multiplier_network[[1]]
+  nu |> comp(multiplier_network) -> return_network
   return(return_network)
 }
 
 slm <- function(a, nu) {
-  constant_matrix_size <- nu |> out()
-  multiplier_network <- list()
-  W <- a |> diag(constant_matrix_size)
-  b <- 0 |> matrix(constant_matrix_size)
-  multiplier_network[[1]] <- list(W = W, b = b)
-  return_network <- multiplier_network |> comp(nu)
+  nu |> out() -> constant_matrix_size
+  list() -> multiplier_network
+  a |> diag(constant_matrix_size) -> W
+  0 |> matrix(constant_matrix_size) -> b
+  list(W = W, b = b) -> multiplier_network[[1]]
+  multiplier_network |> comp(nu) -> return_network
   return(return_network)
 }
 
 srm <- function(nu, a) {
-  constant_matrix_size <- nu |> inn()
-  multiplier_network <- list()
-  W <- a |> diag(constant_matrix_size)
-  b <- 0 |> matrix(constant_matrix_size)
-  multiplier_network[[1]] <- list(W = W, b = b)
-  return_network <- multiplier_network |> comp(nu)
+  nu |> inn() -> constant_matrix_size
+  list() -> multiplier_network
+  a |> diag(constant_matrix_size) -> W
+  0 |> matrix(constant_matrix_size) -> b
+  list(W = W, b = b) -> multiplier_network[[1]]
+  nu |> comp(multiplier_network) -> return_network
   return(return_network)
 }

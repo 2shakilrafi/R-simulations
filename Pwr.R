@@ -1,6 +1,6 @@
 source("Prd.R")
 source("affn.R")
-source("par.R")
+source("stacking.R")
 source("Tun.R")
 source("aux_fun.R")
 
@@ -23,7 +23,7 @@ Pwr <- function(q, eps, exponent) {
 
   if (exponent >= 1) {
     cpy(2, 1) -> first_third
-    par(Pwr(q, eps, exponent - 1), Pwr(q, eps, exponent - 1) |> dep() |> Tun()) -> mid_third
+    Pwr(q,eps, exponent -1) |> stk(Pwr(q, eps, exponent - 1) |> dep() |> Tun()) -> mid_third
     last_third <- Prd(q, eps)
     last_third |>
       comp(mid_third) |>

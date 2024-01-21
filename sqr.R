@@ -17,21 +17,21 @@ source("aux_fun.R")
 #' @example Sqr(0.05, 0.05)
 
 Sqr <- function(q, eps) {
-  delta <- 2^(-2 / (q - 2)) * eps^(q / (q - 2))
-  alpha <- (eps / 2)^(1 / (q - 2))
+  2^(-2 / (q - 2)) * eps^(q / (q - 2)) -> delta
+  (eps / 2)^(1 / (q - 2)) -> alpha
 
   (0.5 * log2(1 / eps) - 1) |> ceiling() -> M
 
   if (M <= 0) 1 else M -> M
 
-  first_summand <- (aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
-    comp(aff(alpha, 0))
+  (aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
+    comp(aff(alpha, 0)) -> first_summand
 
-  second_summand <- (aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
-    comp(aff(-alpha, 0))
+  (aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
+    comp(aff(-alpha, 0)) -> second_summand
 
-  return_network <- first_summand |>
-    nn_sum(second_summand)
+  first_summand |>
+    nn_sum(second_summand) -> return_network
 
   return(return_network)
 }

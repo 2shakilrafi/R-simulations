@@ -1,6 +1,5 @@
 source("affn.R")
 source("comp.R")
-source("affn.R")
 source("nn_sum.R")
 source("Phi.R")
 source("scalar_mult.R")
@@ -18,8 +17,10 @@ A_3 <- c(0, 1) |> matrix(1, 2)
 #' returns xy under ReLU activation
 
 Prd <- function(q, eps) {
-  return_network <- ((1 / 2) %|>% (Sqr(q, eps) %•% aff(A_1, 0))) |>
-    nn_sum((-1 / 2) %|>% (Sqr(q, eps) %•% aff(A_2, 0))) |>
-    nn_sum((-1 / 2) %|>% (Sqr(q, eps) %•% aff(A_3, 0)))
+  0.5 |> slm(Sqr(q,eps)) |> comp(aff(A_1,0)) |>
+    nn_sum(-0.5 |> slm(Sqr(q,eps)) |> comp(aff(A_2,0))) |>
+    nn_sum(-0.5 |> slm(Sqr(q,eps)) |> comp(aff(A_3,0))) -> return_network
   return(return_network)
 }
+
+

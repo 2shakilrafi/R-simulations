@@ -14,18 +14,20 @@ source("nn_sum.R")
 #'
 nrm_1 <- function(d) {
   if (d == 1) {
-    W_1 <- c(1, -1) |> matrix()
-    b_1 <- c(0, 0) |> matrix()
-    W_2 <- c(1, 1) |> matrix(1, 2)
-    b_2 <- 0 |> matrix()
+    c(1, -1) |> matrix() -> W_1
+    c(0, 0) |> matrix() -> b_1
+    c(1, 1) |> matrix(1, 2) -> W_2
+    0 |> matrix() -> b_2
 
-    layer_1 <- list(W = W_1, b = b_1)
-    layer_2 <- list(W = W_2, b = b_2)
-    return_network <- list(layer_1, layer_2)
+    list(W = W_1, b = b_1) -> layer_1
+    list(W = W_2, b = b_2) -> layer_2
+    
+    list(layer_1, layer_2) -> return_network
+    
     return(return_network)
   }
   if (d > 1) {
-    first_compose <- nrm_1(1)
+    nrm_1(1) -> first_compose
     for (i in 1:(d - 1)) {
       first_compose |> par(nrm_1(1)) -> first_compose
     }

@@ -8,22 +8,21 @@ source("Id.R")
 #' @return a tunnel neural network of depth n.
 
 Tun <- function(n) {
-  if (n == 0) {
-    return("Error")
-  }
+
   if (n == 1) {
     return(aff(1, 0))
-  }
-
-  if (n == 2) {
+  } 
+  else if (n == 2) {
     return(Id())
-  }
-
-  if (n > 2) {
-    return_network <- Id()
+  } 
+  else if (n > 2) {
+    Id() -> return_network
     for (i in 3:n) {
-      return_network <- return_network |> comp(Id())
+      return_network |> comp(Id()) -> return_network
     }
     return(return_network)
+  }
+  else {
+    return("Error, n not in range")
   }
 }

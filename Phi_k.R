@@ -2,7 +2,6 @@ source("comp.R")
 source("affn.R")
 source("i.R")
 source("aux_fun.R")
-source("realization.R")
 source("activations.R")
 
 #' The c_k function

@@ -14,10 +14,13 @@ source("aux_fun.R")
 #' @param x our input to the continuous function formed from activation. Our input will
 #' be an element
 #'
-#' @return a continuous function that is the realization of the input neural network
+#' @return a continuous function that is the instantiation of the input neural network
 #' with the activation function specified.
+#'
+#' @example neural_network |> inst(ReLU, 4)
+#' @example neural_network |> inst(Sigmoid, 2)
 
-rlz <- function(neural_network, activation_function, x) {
+inst <- function(neural_network, activation_function, x) {
   if (dep(neural_network) == 1) {
     output <- neural_network[[1]]$W %*% x + neural_network[[1]]$b
     return(output)

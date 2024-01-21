@@ -7,10 +7,14 @@ source("aux_fun.R")
 
 #' The Sqr network
 #'
-#' @param q parameter for the Sqr network, must be in (2,\infty)
-#' @param eps parameter for the Sqr network, must be in (0,1]
+#' @param q parameter for the Sqr network. \eqn{2 \in (2,\infty)}
+#' @param eps parameter for the Sqr network. \eqn{eps \in (0,1]}. You may
+#' choose epsilon to be greater than 1 but that leads to large errors
 #'
-#' @return a neural network that approximates the square of a real number.
+#' @return a neural network that approximates the square of a real number.upon
+#' instantiation with ReLU.
+#' @example Sqr(2.1,0.1)
+#' @example Sqr(0.05, 0.05)
 
 Sqr <- function(q, eps) {
   delta <- 2^(-2 / (q - 2)) * eps^(q / (q - 2))
@@ -31,5 +35,3 @@ Sqr <- function(q, eps) {
 
   return(return_network)
 }
-
-Sqr_v <- Vectorize(Sqr)

@@ -11,27 +11,27 @@ source("affn.R")
 #'
 #' @return a neural network that is the neural network sum of nu_1 and nu_2
 #'
-#' @remark Note we have two versions, an infix version `%⊕%` and a prefix version
+#' @remark Note we have two versions, an infix version \eqn{\oplus} and a prefix version
 #' nn_sum
 
 `%⊕%` <- function(nu_1, nu_2) {
-  first_third <- cpy(2, inn(nu_1))
-  mid_third <- nu_1 %⊟% nu_2
-  last_third <- sm(2, out(nu_1))
-  intermediate_network <- mid_third %•% first_third
-  return_network <- last_third %•% intermediate_network
+  cpy(2, inn(nu_1)) -> first_third
+  nu_1 |> stk(nu_2) -> mid_third
+  sm(2, out(nu_1)) -> last_third
 
+  last_third |>
+    comp(mid_third) |>
+    comp(first_third)
   return(return_network)
 }
 
 nn_sum <- function(nu_1, nu_2) {
-  first_third <- cpy(2, inn(nu_1))
-  mid_third <- nu_1 |> par(nu_2)
-  last_third <- sm(2, out(nu_1))
+  cpy(2, inn(nu_1)) -> first_third
+  nu_1 |> stk(nu_2) -> mid_third
+  sm(2, out(nu_1)) -> last_third
 
-  return_network <- last_third |>
+  last_third |>
     comp(mid_third) |>
     comp(first_third)
-
   return(return_network)
 }

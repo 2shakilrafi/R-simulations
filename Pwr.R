@@ -12,20 +12,22 @@ source("aux_fun.R")
 #'
 #' @return a neural network that approximates raising a number to exponent
 #' under ReLU activation
+#' @example Pwr(2.05, 0.05, 3)
+#' @example Pwr(2.1,0.1, 3)
 
 Pwr <- function(q, eps, exponent) {
   if (exponent == 0) {
-    return_network <- aff(0, 1)
+    aff(0, 1) -> return_network
     return(return_network)
   }
 
   if (exponent >= 1) {
-    first_third <- cpy(2, 1)
-    second_third <- par(Pwr(q, eps, exponent - 1), Pwr(q, eps, exponent - 1) |> dep() |> Tun())
+    cpy(2, 1) -> first_third
+    par(Pwr(q, eps, exponent - 1), Pwr(q, eps, exponent - 1) |> dep() |> Tun()) -> mid_third
     last_third <- Prd(q, eps)
-    return_network <- last_third |>
-      comp(second_third) |>
-      comp(first_third)
+    last_third |>
+      comp(mid_third) |>
+      comp(first_third) -> return_network
   }
   return(return_network)
 }

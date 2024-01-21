@@ -49,10 +49,9 @@ out <- function(nu) {
 lay <- function(nu) {
   layer_architecture <- list()
   for (i in 1:length(nu)) {
-    layer_architecture <-
-      append(layer_architecture, dim(nu[[i]]$W)[1])
+    layer_architecture |> append(dim(nu[[i]]$W)[1]) -> layer_architecture
   }
-  layer_architecture <- append(inn(nu), layer_architecture)
+  inn(nu) |> append(layer_architecture) -> layer_architecture
   return(layer_architecture)
 }
 
@@ -64,10 +63,9 @@ lay <- function(nu) {
 #' @return an integer representing the parameter count of our neural network
 
 param <- function(nu) {
-  param_count <- 0
+  0 -> param_count
   for (i in 1:length(nu)) {
-    param_count <-
-      param_count + length(nu[[i]]$W) + length(nu[[i]]$b)
+    param_count + length(nu[[i]]$W) + length(nu[[i]]$b) -> param_count
   }
   return(param_count)
 }

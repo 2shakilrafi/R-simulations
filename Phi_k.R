@@ -16,22 +16,20 @@ source("activations.R")
 #' https://doi.org/10.1007/s10444-022-09970-2
 
 c_k <- function(k) {
-  return <- 2^{
+  2^{
     1 - 2 * k
-  }
-  return(return)
+  } -> result
+  return(result)
 }
 
 B <- function() {
-  return <- c(0, -1 / 2, -1, 0) |>
-    matrix(4, 1)
-  return(return)
+  c(0, -1 / 2, -1, 0) |> matrix() -> result
+  return(result)
 }
 
 C_k <- function(k) {
-  return <- c(-c_k(k), 2 * c_k(k), -c_k(k), 1) |>
-    matrix(1, 4)
-  return(return)
+  c(-c_k(k), 2 * c_k(k), -c_k(k), 1) |> matrix(1, 4) -> result
+  return(result)
 }
 
 A_k <- function(k) {
@@ -39,19 +37,18 @@ A_k <- function(k) {
     c(-4, -4, -4, 2 * c_k(k)) |>
     c(2, 2, 2, -c_k(k)) |>
     c(0, 0, 0, 1) |>
-    matrix(4, 4)
-  return(return)
+    matrix(4, 4) -> result
+  return(result)
 }
 
 A <- function() {
-  return <- c(1, 1, 1, 1) |>
-    matrix(4, 1)
-  return(return)
+  c(1, 1, 1, 1) |> matrix(4, 1) -> result
+  return(result)
 }
 
 #' The Phi_k function
 #'
-#' @param k an integer between (2,\inf)
+#' @param k an integer \eqn{k \in (2,\infty)}
 #'
 #' @return The Phi_k neural network
 #' @references Grohs, P., Hornung, F., Jentzen, A. et al.
@@ -61,25 +58,23 @@ A <- function() {
 #'
 Phi_k <- function(k) {
   if (k == 1) {
-    return_network <- C_k(1) |>
+    C_k(1) |>
       aff(0) |>
       comp(i(4)) |>
-      comp(aff(A(), B()))
+      comp(aff(A(), B())) -> return_network
     return(return_network)
   }
   if (k >= 2) {
-    return_network <- C_k(k) |>
+    C_k(k) |>
       aff(0) |>
-      comp(i(4))
+      comp(i(4)) -> return_network
     for (j in (k - 1):1) {
-      intermediate_network <- A_k(j) |>
+      A_k(j) |>
         aff(B()) |>
-        comp(i(4))
-      return_network <- return_network |>
-        comp(intermediate_network)
+        comp(i(4)) -> intermediate_network
+      return_network |> comp(intermediate_network) -> return_network
     }
-    return_network <- return_network |>
-      comp(A() |> aff(B()))
+    return_network |> comp(A() |> aff(B())) -> return_network
     return(return_network)
   }
 }

@@ -1,7 +1,7 @@
 source("Pwr.R")
 source("nn_sum.R")
 source("scalar_mult.R")
-source("affn.R")
+source("Aff.R")
 
 #' The Tay function
 #'

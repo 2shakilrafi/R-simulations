@@ -1,7 +1,7 @@
 source("comp.R")
-source("par.R")
+source("stacking.R")
 source("aux_fun.R")
-source("affn.R")
+source("Aff.R")
 
 #' Function for calculating neural network sums
 #'
@@ -15,23 +15,23 @@ source("affn.R")
 #' nn_sum
 
 `%⊕%` <- function(nu_1, nu_2) {
-  cpy(2, inn(nu_1)) -> first_third
+  Cpy(2, inn(nu_1)) -> first_third
   nu_1 |> stk(nu_2) -> mid_third
-  sm(2, out(nu_1)) -> last_third
+  Sum(2, out(nu_1)) -> last_third
 
   last_third |>
     comp(mid_third) |>
-    comp(first_third)
+    comp(first_third) -> return_network
   return(return_network)
 }
 
 nn_sum <- function(nu_1, nu_2) {
-  cpy(2, inn(nu_1)) -> first_third
+  Cpy(2, inn(nu_1)) -> first_third
   nu_1 |> stk(nu_2) -> mid_third
-  sm(2, out(nu_1)) -> last_third
+  Sum(2, out(nu_1)) -> last_third
 
   last_third |>
     comp(mid_third) |>
-    comp(first_third)
+    comp(first_third) -> return_network
   return(return_network)
 }

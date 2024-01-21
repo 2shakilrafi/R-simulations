@@ -1,5 +1,5 @@
 source("Prd.R")
-source("affn.R")
+source("Aff.R")
 source("stacking.R")
 source("Tun.R")
 source("aux_fun.R")
@@ -17,17 +17,19 @@ source("aux_fun.R")
 
 Pwr <- function(q, eps, exponent) {
   if (exponent == 0) {
-    aff(0, 1) -> return_network
+    Aff(0, 1) -> return_network
     return(return_network)
   }
-
-  if (exponent >= 1) {
-    cpy(2, 1) -> first_third
+  else if (exponent >= 1) {
+    Cpy(2, 1) -> first_third
     Pwr(q,eps, exponent -1) |> stk(Pwr(q, eps, exponent - 1) |> dep() |> Tun()) -> mid_third
-    last_third <- Prd(q, eps)
+    Prd(q, eps) -> last_third
     last_third |>
       comp(mid_third) |>
       comp(first_third) -> return_network
+  }
+  else {
+    return("Invalid exponent")
   }
   return(return_network)
 }

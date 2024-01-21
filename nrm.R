@@ -1,5 +1,5 @@
-source("affn.R")
-source("par.R")
+source("Aff.R")
+source("stacking.R")
 source("comp.R")
 source("nn_sum.R")
 
@@ -12,7 +12,7 @@ source("nn_sum.R")
 #' @remark note that this function is split into two cases
 #' much like the definition itself.
 #'
-nrm_1 <- function(d) {
+Nrm <- function(d) {
   if (d == 1) {
     c(1, -1) |> matrix() -> W_1
     c(0, 0) |> matrix() -> b_1
@@ -26,12 +26,15 @@ nrm_1 <- function(d) {
     
     return(return_network)
   }
-  if (d > 1) {
-    nrm_1(1) -> first_compose
+  else if (d > 1) {
+    1 |> Nrm() -> first_compose
     for (i in 1:(d - 1)) {
-      first_compose |> par(nrm_1(1)) -> first_compose
+      first_compose |> stk(nrm_1(1)) -> first_compose
     }
-    sm(d, 1) |> comp(first_compose) -> return_network
+    Sum(d, 1) |> comp(first_compose) -> return_network
     return(return_network)
+  }
+  else {
+    return("Error: possibly taking the norm of an invalid array")
   }
 }

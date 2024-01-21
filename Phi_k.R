@@ -1,5 +1,5 @@
 source("comp.R")
-source("affn.R")
+source("Aff.R")
 source("i.R")
 source("aux_fun.R")
 source("activations.R")
@@ -32,7 +32,7 @@ C_k <- function(k) {
 }
 
 A_k <- function(k) {
-  return <- c(2, 2, 2, -c_k(k)) |>
+  c(2, 2, 2, -c_k(k)) |>
     c(-4, -4, -4, 2 * c_k(k)) |>
     c(2, 2, 2, -c_k(k)) |>
     c(0, 0, 0, 1) |>

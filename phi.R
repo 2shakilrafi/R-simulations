@@ -1,6 +1,6 @@
 source("Phi_k.R")
 source("i.R")
-source("affn.R")
+source("Aff.R")
 
 
 #' The Phi function
@@ -17,9 +17,7 @@ source("affn.R")
 Phi <- function(eps) {
   (0.5 * log2(1 / eps) - 1) |> ceiling() -> M
 
-  if (M <= 0) {
-    M <- 1
-  }
+  if (M <= 0) 1 -> M
 
   if (M == 1) {
     C_k(1) |>

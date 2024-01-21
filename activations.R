@@ -24,3 +24,7 @@ ReLU <- function(x) {
 Sigmoid <- function(x) {
   return(1 / (1 + exp(-x)))
 }
+
+Tanh <- function(x) {
+  return(x |> tanh())
+}

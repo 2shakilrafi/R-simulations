@@ -8,8 +8,8 @@ source("affn.R")
 #' @param f the function to be Taylor approximated, for now "exp", "sin"
 #' and "cos". NOTE use the quotation marks when using this arguments
 #' @param n the extent of Taylor approximations, a natural number
-#' @param q argument for the Pwr networks q \in (2,\infty)
-#' @param eps argument for the Pwr networks eps \in (0,\infty)
+#' @param q argument for the Pwr networks \eqn{q \in (2,\infty)}
+#' @param eps argument for the Pwr networks \eqn{eps \in (0,\infty)}
 #'
 #' @return a neural network that approximates the function f
 

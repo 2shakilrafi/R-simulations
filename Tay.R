@@ -41,6 +41,6 @@ Tay <- function(f, n, q, eps) {
   if (f == "sin") {
     Tay("cos", n, q, eps) -> return_network
     return_network |> comp(aff(1, -pi / 2)) -> return_network
-    return(return_network) 
+    return(return_network)
   }
 }

@@ -4,9 +4,9 @@ source("nn_sum.R")
 source("Phi.R")
 source("scalar_mult.R")
 
-A_1 <- c(1, 1) |> matrix(1, 2)
-A_2 <- c(1, 0) |> matrix(1, 2)
-A_3 <- c(0, 1) |> matrix(1, 2)
+c(1, 1) |> matrix(1, 2) -> A_1
+c(1, 0) |> matrix(1, 2) -> A_2
+c(0, 1) |> matrix(1, 2) -> A_3
 
 #' The Prd network
 #'

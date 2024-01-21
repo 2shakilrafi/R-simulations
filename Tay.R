@@ -3,6 +3,18 @@ source("nn_sum.R")
 source("scalar_mult.R")
 source("affn.R")
 
+#' The Tay function
+#'
+#' @param f the function to be Taylor approximated, for now "exp", "sin"
+#' and "cos". NOTE use the quotation marks when using this arguments
+#' @param n the extent of Taylor approximations, a natural number
+#' @param q argument for the Pwr networks q \in (2,\infty)
+#' @param eps argument for the Pwr networks eps \in (0,\infty)
+#'
+#' @return
+#' @export
+#'
+#' @examples
 Tay <- function(f, n, q, eps) {
   if (f == "exp") {
     (1 / factorial(0)) |> slm(Pwr(q, eps, 0)) -> return_network

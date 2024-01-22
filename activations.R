@@ -25,6 +25,12 @@ Sigmoid <- function(x) {
   return(1 / (1 + exp(-x)))
 }
 
+#' The tanh activation function
+#'
+#' @param x a real number
+#'
+#' @return the tanh of x
+
 Tanh <- function(x) {
   return(x |> tanh())
 }

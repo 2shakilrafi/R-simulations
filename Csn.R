@@ -3,8 +3,8 @@ source("Tay.R")
 #' The Csn function
 #'
 #' @param n The number of Taylor iterations
-#' @param q a real number in (2,\infty)
-#' @param eps a real number in (0,\infty)
+#' @param q a real number in \eqn{(2,\infty)}
+#' @param eps a real number in \eqn{(0,\infty)}
 #'
 #' @return a neural network that approximates cos
 

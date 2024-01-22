@@ -10,7 +10,7 @@ source("Tun.R")
 #' and matrix2 on bottom right
 
 create_block_diagonal <- function(matrix1, matrix2) {
-  nrow(matrix1) -> m1 
+  nrow(matrix1) -> m1
   nrow(matrix2) -> m2
   ncol(matrix1) -> n1
   ncol(matrix2) -> n2
@@ -87,14 +87,14 @@ stk <- function(nu, mu) {
     }
     return(parallelized_network)
   }
-  
+
   if (dep(nu) > dep(mu)) {
     (dep(nu) - dep(mu) + 1) |> Tun() -> padding
     padding |> comp(mu) -> padded_network
     nu |> par(padded_network) -> parallelized_network
     return(parallelized_network)
   }
-  
+
   if (dep(nu) < dep(mu)) {
     (dep(mu) - dep(nu) + 1) |> Tun() -> padding
     padding |> comp(nu) -> padded_network

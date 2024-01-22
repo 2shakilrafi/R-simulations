@@ -17,10 +17,10 @@ c(0, 1) |> matrix(1, 2) -> A_3
 #' returns xy under ReLU activation
 
 Prd <- function(q, eps) {
-  0.5 |> slm(Sqr(q,eps)) |> comp(aff(A_1,0)) |>
-    nn_sum(-0.5 |> slm(Sqr(q,eps)) |> comp(Aff(A_2,0))) |>
-    nn_sum(-0.5 |> slm(Sqr(q,eps)) |> comp(Aff(A_3,0))) -> return_network
+  0.5 |>
+    slm(Sqr(q, eps)) |>
+    comp(aff(A_1, 0)) |>
+    nn_sum(-0.5 |> slm(Sqr(q, eps)) |> comp(Aff(A_2, 0))) |>
+    nn_sum(-0.5 |> slm(Sqr(q, eps)) |> comp(Aff(A_3, 0))) -> return_network
   return(return_network)
 }
-
-

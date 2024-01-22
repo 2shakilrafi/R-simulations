@@ -19,10 +19,9 @@ source("aux_fun.R")
 #' @encoding utf8
 
 `%•%` <- function(phi_1, phi_2) {
-  
   dep(phi_1) -> L
   dep(phi_2) -> L_
-  
+
   if (L > 1 & L_ > 1) {
     phi_2[-L_] -> beginning
     phi_1[-1] -> end
@@ -35,8 +34,7 @@ source("aux_fun.R")
       end
     ) -> composed_network
     return(composed_network)
-  }
-  else if (L > 1 & L_ == 1) {
+  } else if (L > 1 & L_ == 1) {
     phi_1[[1]]$W %*% phi_2[[1]]$W -> beginning_W
     phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b -> beginning_b
     list(
@@ -49,8 +47,7 @@ source("aux_fun.R")
       end
     ) -> composed_network
     return(composed_network)
-  }
-  else if (L == 1 & L_ > 1) {
+  } else if (L == 1 & L_ > 1) {
     phi_2[-L_] -> beginning
     phi_1[[1]]$W %*% phi_2[[L_]]$W -> end_W
     phi_1[[1]]$W %*% phi_2[[L_]]$b + phi_1[[1]]$b -> end_b
@@ -63,8 +60,7 @@ source("aux_fun.R")
       list(end)
     ) -> composed_network
     return(composed_network)
-  }
-  else if (L == 1 & L_ == 1) {
+  } else if (L == 1 & L_ == 1) {
     list() -> composed_network
     phi_1[[1]]$W %*% phi_2[[1]]$W -> W
     phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b -> b
@@ -73,17 +69,15 @@ source("aux_fun.R")
       b = b
     ) -> composed_network[[1]]
     return(composed_network)
-  }
-  else{
+  } else {
     return("Error in dimensionality mismatch")
   }
 }
 
 comp <- function(phi_1, phi_2) {
-  
   dep(phi_1) -> L
   dep(phi_2) -> L_
-  
+
   if (L > 1 & L_ > 1) {
     phi_2[-L_] -> beginning
     phi_1[-1] -> end
@@ -96,8 +90,7 @@ comp <- function(phi_1, phi_2) {
       end
     ) -> composed_network
     return(composed_network)
-  }
-  else if (L > 1 & L_ == 1) {
+  } else if (L > 1 & L_ == 1) {
     phi_1[[1]]$W %*% phi_2[[1]]$W -> beginning_W
     phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b -> beginning_b
     list(
@@ -110,8 +103,7 @@ comp <- function(phi_1, phi_2) {
       end
     ) -> composed_network
     return(composed_network)
-  }
-  else if (L == 1 & L_ > 1) {
+  } else if (L == 1 & L_ > 1) {
     phi_2[-L_] -> beginning
     phi_1[[1]]$W %*% phi_2[[L_]]$W -> end_W
     phi_1[[1]]$W %*% phi_2[[L_]]$b + phi_1[[1]]$b -> end_b
@@ -124,8 +116,7 @@ comp <- function(phi_1, phi_2) {
       list(end)
     ) -> composed_network
     return(composed_network)
-  }
-  else if (L == 1 & L_ == 1) {
+  } else if (L == 1 & L_ == 1) {
     list() -> composed_network
     phi_1[[1]]$W %*% phi_2[[1]]$W -> W
     phi_1[[1]]$W %*% phi_2[[1]]$b + phi_1[[1]]$b -> b
@@ -134,8 +125,7 @@ comp <- function(phi_1, phi_2) {
       b = b
     ) -> composed_network[[1]]
     return(composed_network)
-  }
-  else{
+  } else {
     return("Error in dimensionality mismatch")
   }
 }

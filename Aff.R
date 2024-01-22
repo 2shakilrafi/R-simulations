@@ -46,6 +46,6 @@ Sum <- function(n, k) {
   }
   0 |> matrix(k) -> b
   list(list(W = W, b = b)) -> return_network
-  
+
   return(return_network)
 }

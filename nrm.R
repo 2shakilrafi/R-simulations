@@ -21,20 +21,18 @@ Nrm <- function(d) {
 
     list(W = W_1, b = b_1) -> layer_1
     list(W = W_2, b = b_2) -> layer_2
-    
+
     list(layer_1, layer_2) -> return_network
-    
+
     return(return_network)
-  }
-  else if (d > 1) {
+  } else if (d > 1) {
     1 |> Nrm() -> first_compose
     for (i in 1:(d - 1)) {
       first_compose |> stk(nrm_1(1)) -> first_compose
     }
     Sum(d, 1) |> comp(first_compose) -> return_network
     return(return_network)
-  }
-  else {
+  } else {
     return("Error: possibly taking the norm of an invalid array")
   }
 }

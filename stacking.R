@@ -10,16 +10,16 @@ source("Tun.R")
 #' and matrix2 on bottom right
 
 create_block_diagonal <- function(matrix1, matrix2) {
-  nrow(matrix1) -> n1 
-  nrow(matrix2) -> n2
-  ncol(matrix1) -> n3
-  ncol(matrix2) -> n4
+  nrow(matrix1) -> m1 
+  nrow(matrix2) -> m2
+  ncol(matrix1) -> n1
+  ncol(matrix2) -> n2
 
 
   # Create a block diagonal matrix
-  0 |> matrix(n1 + n2, m1 + m2) -> block_diagonal_matrix
-  block_diagonal_matrix[1:n1, 1:m1] <- matrix1
-  block_diagonal_matrix[(n1 + 1):(n1 + n2), (m1 + 1):(m1 + m2)] <-
+  0 |> matrix(m1 + m2, n1 + n2) -> block_diagonal_matrix
+  block_diagonal_matrix[1:m1, 1:n1] <- matrix1
+  block_diagonal_matrix[(m1 + 1):(m1 + m2), (n1 + 1):(n1 + n2)] <-
     matrix2
 
   return(block_diagonal_matrix)

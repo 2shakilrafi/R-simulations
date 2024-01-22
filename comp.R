@@ -22,7 +22,7 @@ source("aux_fun.R")
   
   dep(phi_1) -> L
   dep(phi_2) -> L_
-
+  
   if (L > 1 & L_ > 1) {
     phi_2[-L_] -> beginning
     phi_1[-1] -> end

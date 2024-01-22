@@ -1,9 +1,10 @@
-#' The aff function
+#' The Aff function
 #'
-#' @param W an m by n matrix representing the weight of the affine neural network
-#' @param b a m by 1 vector representing the bias of the affine neural network
+#' @param W An \eqn{m \times n} matrix representing the weight of the affine neural network
+#' @param b An \eqn{m \times 1} vector representing the bias of the affine neural network
 #'
-#' @return returns the network \eqn{((W,b))} representing an affine neural network
+#' @return returns the network \eqn{((W,b))} representing an affine neural network.
+#' See also \code{\link{Cpy}} and \code{\link{Sum}}.
 
 Aff <- function(W, b) {
   if (W |> is.matrix() == FALSE) (W |> matrix() -> W)
@@ -12,14 +13,13 @@ Aff <- function(W, b) {
   return(return_network)
 }
 
-#' The cpy network, a network that takes a vector of length k and returns a concatenated
-#' vector consisting of n copies of said vector
+#' The Cpy network,
 #'
-#' @param n number of copies to make
-#' @param k the size of the input vector
+#' @param n number of copies to make.
+#' @param k the size of the input vector.
 #'
-#' @return returns an affine network that makes a concatenated vector that is n
-#' copies of the input vector
+#' @return Returns an affine network that makes a concatenated vector that is \eqn{n}
+#' copies of the input vector of size \eqn{k}. See \code{\link{Aff}} and \code{\link{Sum}}.
 
 Cpy <- function(n, k) {
   k |> diag() -> W
@@ -31,13 +31,13 @@ Cpy <- function(n, k) {
   return(return_network)
 }
 
-#' The sum neural network
+#' The Sum neural network
 #'
-#' @param n number of copies of a certain vector to be summed
-#' @param k the size of the summation vector
+#' @param n number of copies of a certain vector to be summed.
+#' @param k the size of the summation vector.
 #'
-#' @return an affine neural network that will take a vector of size n*k and return
-#' the summation vector that is of length k
+#' @return An affine neural network that will take a vector of size \eqn{n \times k} and return
+#' the summation vector that is of length \eqn{k}. See also \code{\link{Aff}} and \code{\link{Cpy}}.
 
 Sum <- function(n, k) {
   k |> diag() -> W

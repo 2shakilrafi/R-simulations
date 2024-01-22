@@ -1,15 +1,15 @@
-source("Aff.R")
-source("stacking.R")
-source("comp.R")
-source("nn_sum.R")
+source("R/Aff.R")
+source("R/stacking.R")
+source("R/comp.R")
+source("R/nn_sum.R")
 
-#' The Nrm network
+#' The Nrm network.
 #'
-#' @param d the dimensions of the vector being normed
+#' @param d the dimensions of the vector being normed.
 #'
 #' @return a neural network that takes the 1-norm of a vector of
-#' size d.under ReLU activation
-#' @remark note that this function is split into two cases
+#' size d.under ReLU activation.
+#' \emph{Note:} This function is split into two cases
 #' much like the definition itself.
 #'
 Nrm <- function(d) {
@@ -28,7 +28,7 @@ Nrm <- function(d) {
   } else if (d > 1) {
     1 |> Nrm() -> first_compose
     for (i in 1:(d - 1)) {
-      first_compose |> stk(nrm_1(1)) -> first_compose
+      first_compose |> stk(Nrm(1)) -> first_compose
     }
     Sum(d, 1) |> comp(first_compose) -> return_network
     return(return_network)

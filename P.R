@@ -1,7 +1,7 @@
-source("stacking.R")
-source("comp.R")
-source("Nrm.R")
-source("Mxm.R")
+source("R/stacking.R")
+source("R/comp.R")
+source("R/Nrm.R")
+source("R/Mxm.R")
 
 #' The P neural network
 #'

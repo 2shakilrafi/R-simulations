@@ -1,9 +1,8 @@
-source("affn.R")
-source("comp.R")
-source("affn.R")
-source("nn_sum.R")
-source("Phi.R")
-source("aux_fun.R")
+source("R/comp.R")
+source("R/Aff.R")
+source("R/nn_sum.R")
+source("R/Phi.R")
+source("R/aux_fun.R")
 
 #' The Sqr network
 #'
@@ -13,8 +12,7 @@ source("aux_fun.R")
 #'
 #' @return a neural network that approximates the square of a real number.upon
 #' instantiation with ReLU.
-#' @example Sqr(2.1,0.1)
-#' @example Sqr(0.05, 0.05)
+
 
 Sqr <- function(q, eps) {
   2^(-2 / (q - 2)) * eps^(q / (q - 2)) -> delta
@@ -24,11 +22,11 @@ Sqr <- function(q, eps) {
 
   if (M <= 0) 1 else M -> M
 
-  (aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
-    comp(aff(alpha, 0)) -> first_summand
+  (Aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
+    comp(Aff(alpha, 0)) -> first_summand
 
-  (aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
-    comp(aff(-alpha, 0)) -> second_summand
+  (Aff(alpha^(-2), 0) |> comp(Phi(delta))) |>
+    comp(Aff(-alpha, 0)) -> second_summand
 
   first_summand |>
     nn_sum(second_summand) -> return_network

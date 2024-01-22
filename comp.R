@@ -1,24 +1,23 @@
-source("aux_fun.R")
+source("R/aux_fun.R")
 
-#' The %•% function
+#' The `%comp%` function
 #'
-#' @param phi_1 first neural network to be stacked, goes on top
-#' @param phi_2 second neural network to be stacked, goes on bottom
+#' @param phi_1 first neural network to be composed, goes on the left
+#' @param phi_2 second neural network to be composed, goes on right
 #'
-#' @return the composed neural network
+#' @return the composed neural network. See also \code{\link{dep}}
 #'
 #' @references Grohs, P., Hornung, F., Jentzen, A. et al.
 #' Space-time error estimates for deep neural network approximations
 #' for differential equations. Adv Comput Math 49, 4 (2023).
-#' https://doi.org/10.1007/s10444-022-09970-2
+#' \url{https://doi.org/10.1007/s10444-022-09970-2}.
 #'
-#' @remark Note that we have two versions of this function, a unicode
+#' \emph{Remark:} We have two versions of this function, an
 #' infix version for close resemblance to mathematical notation and
 #' prefix version comp()
-#'
-#' @encoding utf8
 
-`%•%` <- function(phi_1, phi_2) {
+
+`%comp%` <- function(phi_1, phi_2) {
   dep(phi_1) -> L
   dep(phi_2) -> L_
 
@@ -73,6 +72,23 @@ source("aux_fun.R")
     return("Error in dimensionality mismatch")
   }
 }
+
+#' The comp function
+#'
+#' @param phi_1 first neural network to be composed, goes on the left
+#' @param phi_2 second neural network to be composed, goes on right
+#'
+#' @return the composed neural network. See also \code{\link{dep}}
+#'
+#' @references Grohs, P., Hornung, F., Jentzen, A. et al.
+#' Space-time error estimates for deep neural network approximations
+#' for differential equations. Adv Comput Math 49, 4 (2023).
+#' \url{https://doi.org/10.1007/s10444-022-09970-2}.
+#'
+#' \emph{Remark:} We have two versions of this function, an
+#' infix version for close resemblance to mathematical notation and
+#' prefix version.
+
 
 comp <- function(phi_1, phi_2) {
   dep(phi_1) -> L

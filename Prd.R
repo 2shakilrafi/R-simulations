@@ -1,8 +1,8 @@
-source("Aff.R")
-source("comp.R")
-source("nn_sum.R")
-source("Phi.R")
-source("scalar_mult.R")
+source("R/Aff.R")
+source("R/comp.R")
+source("R/nn_sum.R")
+source("R/Phi.R")
+source("R/scalar_mult.R")
 
 c(1, 1) |> matrix(1, 2) -> A_1
 c(1, 0) |> matrix(1, 2) -> A_2
@@ -19,7 +19,7 @@ c(0, 1) |> matrix(1, 2) -> A_3
 Prd <- function(q, eps) {
   0.5 |>
     slm(Sqr(q, eps)) |>
-    comp(aff(A_1, 0)) |>
+    comp(Aff(A_1, 0)) |>
     nn_sum(-0.5 |> slm(Sqr(q, eps)) |> comp(Aff(A_2, 0))) |>
     nn_sum(-0.5 |> slm(Sqr(q, eps)) |> comp(Aff(A_3, 0))) -> return_network
   return(return_network)

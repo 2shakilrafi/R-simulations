@@ -1,8 +1,8 @@
-source("comp.R")
-source("Aff.R")
-source("i.R")
-source("aux_fun.R")
-source("activations.R")
+source("R/comp.R")
+source("R/Aff.R")
+source("R/i.R")
+source("R/aux_fun.R")
+source("R/activations.R")
 
 #' The c_k function
 #'
@@ -58,22 +58,22 @@ A <- function() {
 Phi_k <- function(k) {
   if (k == 1) {
     C_k(1) |>
-      aff(0) |>
+      Aff(0) |>
       comp(i(4)) |>
       comp(aff(A(), B())) -> return_network
     return(return_network)
   }
   if (k >= 2) {
     C_k(k) |>
-      aff(0) |>
+      Aff(0) |>
       comp(i(4)) -> return_network
     for (j in (k - 1):1) {
       A_k(j) |>
-        aff(B()) |>
+        Aff(B()) |>
         comp(i(4)) -> intermediate_network
       return_network |> comp(intermediate_network) -> return_network
     }
-    return_network |> comp(A() |> aff(B())) -> return_network
+    return_network |> comp(A() |> Aff(B())) -> return_network
     return(return_network)
   }
 }

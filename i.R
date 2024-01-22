@@ -1,6 +1,6 @@
 #' The i function
 #'
-#' @param d the size of the i network
+#' @param d the size of the \eqn{\mathsf{i}} network
 #'
 #' @return returns the i_d network
 

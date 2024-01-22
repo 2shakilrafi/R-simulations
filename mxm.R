@@ -1,19 +1,19 @@
-source("Aff.R")
-source("stacking.R")
-source("comp.R")
-source("nn_sum.R")
-source("Id.R")
+source("R/Aff.R")
+source("R/stacking.R")
+source("R/comp.R")
+source("R/nn_sum.R")
+source("R/Id.R")
 
 #' The Mxm network
 #'
-#' @param d the dimension of the input
+#' @param d The dimension of the input vector on instantiation.
 #'
-#' @return the neural network that will ouput the maximum when activated
-#' with the ReLU function
+#' @return The neural network that will ouput the maximum of a vector of
+#' size \eqn{d} when activated with the ReLU function
 
-#' @remark Note that because of certain quirks of R we will have split
+#' \emph{Note:} Because of certain quirks of R we will have split
 #' into five cases. We add an extra case for d == 3. Unlike the paper
-#' we will simply reverse engineer the apropriate d.
+#' we will simply reverse engineer the appropriate \emph{d}.
 Mxm <- function(d) {
   if (d == 1) {
     return(Aff(1, 0))

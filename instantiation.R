@@ -1,6 +1,6 @@
-source("aux_fun.R")
+source("R/aux_fun.R")
 
-#' The Realization function
+#' The inst or instantiation function
 #'
 #' @param neural_network. An ordered list of lists, where each element in the list of
 #' lists is a pair (W,b) representing the weights and biases of that layer. For
@@ -16,9 +16,7 @@ source("aux_fun.R")
 #'
 #' @return a continuous function that is the instantiation of the input neural network
 #' with the activation function specified.
-#'
-#' @example neural_network |> inst(ReLU, 4)
-#' @example neural_network |> inst(Sigmoid, 2)
+
 
 inst <- function(neural_network, activation_function, x) {
   if (dep(neural_network) == 1) {

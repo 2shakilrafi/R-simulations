@@ -1,6 +1,6 @@
-source("Phi_k.R")
-source("i.R")
-source("Aff.R")
+source("R/Phi_k.R")
+source("R/i.R")
+source("R/Aff.R")
 
 
 #' The Phi function

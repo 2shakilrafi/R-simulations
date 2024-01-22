@@ -4,11 +4,8 @@
 #' @param h the horizontal distance between two mesh points
 #'
 #' @return the area when activated with ReLU and two meshpoints
-#' x_1 and x_2
-#'
-#' @export
-#'
-#' @examples
+#' x_1 and x_2.
+
 Trp <- function(h) {
   c(h / 2, h / 2) |> matrix(1, 2) -> W
   0 |> matrix() -> b
@@ -25,9 +22,7 @@ Trp <- function(h) {
 #' @param h width of trapezoids
 #'
 #' @return an approximation for area of the integral
-#' @export
-#'
-#' @examples
+
 Etr <- function(n, h) {
   c(h / 2, rep(h, n - 1), h / 2) |>
     matrix() |>

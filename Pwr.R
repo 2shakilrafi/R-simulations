@@ -1,8 +1,8 @@
-source("Prd.R")
-source("Aff.R")
-source("stacking.R")
-source("Tun.R")
-source("aux_fun.R")
+source("R/Prd.R")
+source("R/Aff.R")
+source("R/stacking.R")
+source("R/Tun.R")
+source("R/aux_fun.R")
 
 #' The Pwr function
 #'
@@ -12,8 +12,7 @@ source("aux_fun.R")
 #'
 #' @return a neural network that approximates raising a number to exponent
 #' under ReLU activation
-#' @example Pwr(2.05, 0.05, 3)
-#' @example Pwr(2.1,0.1, 3)
+
 
 Pwr <- function(q, eps, exponent) {
   if (exponent == 0) {

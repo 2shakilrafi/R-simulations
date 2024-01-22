@@ -1,7 +1,7 @@
-source("Pwr.R")
-source("nn_sum.R")
-source("scalar_mult.R")
-source("Aff.R")
+source("R/Pwr.R")
+source("R/nn_sum.R")
+source("R/scalar_mult.R")
+source("R/Aff.R")
 
 #' The Tay function
 #'
@@ -40,7 +40,7 @@ Tay <- function(f, n, q, eps) {
 
   if (f == "sin") {
     Tay("cos", n, q, eps) -> return_network
-    return_network |> comp(aff(1, -pi / 2)) -> return_network
+    return_network |> comp(Aff(1, -pi / 2)) -> return_network
     return(return_network)
   }
 }

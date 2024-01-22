@@ -1,4 +1,4 @@
-source("Tay.R")
+source("R/Tay.R")
 
 #' The Csn function
 #'
@@ -9,5 +9,6 @@ source("Tay.R")
 #' @return a neural network that approximates cos
 
 Csn <- function(n, q, eps) {
-  return(Tay("cos", n, q, eps))
+  Tay("cos", n, q, eps) -> return_network
+  return(return_network)
 }

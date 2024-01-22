@@ -1,4 +1,4 @@
-source("Tay.R")
+source("R/Tay.R")
 
 #' The Xpn function
 #'

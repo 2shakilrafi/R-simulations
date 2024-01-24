@@ -6,9 +6,9 @@ source("R/activations.R")
 
 #' The c_k function
 #'
-#' @param k an integer between (2,\inf)
+#' @param k an integer in \eqn{[1,\infty)}
 #'
-#' @return the real number 2^{1-2k}
+#' @return the real number \eqn{2^{1-2k}}
 #' @references Grohs, P., Hornung, F., Jentzen, A. et al.
 #' Space-time error estimates for deep neural network approximations
 #' for differential equations. Adv Comput Math 49, 4 (2023).
@@ -21,16 +21,31 @@ c_k <- function(k) {
   return(result)
 }
 
-B <- function() {
-  c(0, -1 / 2, -1, 0) |> matrix() -> result
-  return(result)
-}
+c(0, -1 / 2, -1, 0) |> matrix() -> B
+
+
+#' C_k: The function that returns the C_k matrix
+#'
+#' @param k Natural number, the precision with which to approximate squares
+#' within \eqn{[0,1]}
+#'
+#' @return A neural network that approximates the square of any real within
+#' \eqn{[0,1]}
 
 C_k <- function(k) {
   c(-c_k(k), 2 * c_k(k), -c_k(k), 1) |> matrix(1, 4) -> result
   return(result)
 }
 
+
+#' A_k: The function that returns the matrix A_k
+#'
+#' @param k Natural number, the precision with which to approximate squares
+#' within \eqn{[0,1]}
+#'
+#' @return A neural network that approximates the square of any real within
+#' \eqn{[0,1]}
+#'
 A_k <- function(k) {
   c(2, 2, 2, -c_k(k)) |>
     c(-4, -4, -4, 2 * c_k(k)) |>
@@ -40,10 +55,9 @@ A_k <- function(k) {
   return(result)
 }
 
-A <- function() {
-  c(1, 1, 1, 1) |> matrix(4, 1) -> result
-  return(result)
-}
+
+c(1, 1, 1, 1) |> matrix(4, 1) -> A
+
 
 #' The Phi_k function
 #'
@@ -56,24 +70,32 @@ A <- function() {
 #' https://doi.org/10.1007/s10444-022-09970-2
 #'
 Phi_k <- function(k) {
-  if (k == 1) {
-    C_k(1) |>
-      Aff(0) |>
-      comp(i(4)) |>
-      comp(aff(A(), B())) -> return_network
-    return(return_network)
-  }
-  if (k >= 2) {
-    C_k(k) |>
-      Aff(0) |>
-      comp(i(4)) -> return_network
-    for (j in (k - 1):1) {
-      A_k(j) |>
-        Aff(B()) |>
-        comp(i(4)) -> intermediate_network
-      return_network |> comp(intermediate_network) -> return_network
+  if (k |> is.numeric() &&
+    k |> length() == 1 &&
+    k >= 1 &&
+    k |> is.finite() &&
+    k %% 1 == 0) {
+    if (k == 1) {
+      C_k(1) |>
+        Aff(0) |>
+        comp(i(4)) |>
+        comp(Aff(A, B)) -> return_network
+      return(return_network)
     }
-    return_network |> comp(A() |> Aff(B())) -> return_network
-    return(return_network)
+    if (k >= 2) {
+      C_k(k) |>
+        Aff(0) |>
+        comp(i(4)) -> return_network
+      for (j in (k - 1):1) {
+        A_k(j) |>
+          Aff(B) |>
+          comp(i(4)) -> intermediate_network
+        return_network |> comp(intermediate_network) -> return_network
+      }
+      return_network |> comp(A |> Aff(B)) -> return_network
+      return(return_network)
+    }
+  } else {
+    stop("k must a natural number")
   }
 }

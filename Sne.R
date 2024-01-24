@@ -1,13 +1,24 @@
 source("R/Tay.R")
 
-#' The Sne function
+#' @title Sne
+#' @description Returns the \eqn{\mathsf{Sne}} neural networks
+#'
 #'
 #' @param n the number of Taylor iterations
-#' @param q a real number between (2,\infty)
-#' @param eps a real number between (0,\infty)
+#' @param q a real number in \eqn{(2,\infty)}
+#' @param eps a real number in \eqn{(0,\infty)}
 #'
-#' @return a neural network that approximates Sin.
+#' @return a neural network that approximates \eqn{\sin} when given
+#' an appropriate \eqn{n,q,\varepsilon} and instantiated with ReLU
+#' activation and given value \eqn{x}.
+#' @export
 
 Sne <- function(n, q, eps) {
-  return(Tay("sin", n, q, eps))
+  if (q <= 2 || eps <= 0) {
+    stop("q must be > 2 and eps must be > 0")
+  } else if (n %% 1 != 0 || n < 0) {
+    stop("The number of Taylor iterations must be non negative integer")
+  } else {
+    return(Tay("sin", n, q, eps))
+  }
 }

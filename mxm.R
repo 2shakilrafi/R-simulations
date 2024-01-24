@@ -4,17 +4,43 @@ source("R/comp.R")
 source("R/nn_sum.R")
 source("R/Id.R")
 
-#' The Mxm network
+#' @title Mxm
+#' @description The function that returns the \eqn{\mathsf{Mxm}} neural networks.
+#' These are neural networks of the type:
+#' \deqn{
+#'\mathsf{Mxm}^1 = \mathsf{Aff}_{1,0} \quad d = 1 \\
+#'\\
+#'\mathsf{Mxm}^2 = \left( \left( \begin{bmatrix} 1 & -1 \\ 0 & 1 \\ 0 & -1\end{bmatrix},
+#'\begin{bmatrix} 0 \\ 0 \\0\end{bmatrix}\right), \left( \begin{bmatrix}1&1&-1\end{bmatrix},
+#'\begin{bmatrix}0\end{bmatrix}\right)\right) \quad d = 2 \\
+#'\\
+#'\mathsf{Mxm}^{2d} = \mathsf{Mxm}^d \bullet \left[ \boxminus_{i=1}^d \mathsf{Mxm}^2\right] \quad d > 2\\
+#'\mathsf{Mxm}^{2d-1} = \mathsf{Mxm}^d \bullet \left[ \left( \boxminus^d_{i=1} \mathsf{Mxm}^2 \right)
+#'\boxminus \mathsf{Id}_1\right] \quad d > 2
+#'
+#'}
+#'
+
+#' \emph{Note:} Because of certain quirks of R we will have split
+#' into five cases. We add an extra case for \eqn{d = 3}. Unlike the paper
+#' we will simply reverse engineer the appropriate \emph{d}.
 #'
 #' @param d The dimension of the input vector on instantiation.
 #'
 #' @return The neural network that will ouput the maximum of a vector of
-#' size \eqn{d} when activated with the ReLU function
+#' size \eqn{d} when activated with the ReLU function.
+#'
+#' @references Lemma 4.2.4. Jentzen, A., Kuckuck, B., and von Wurstemberger, P. (2023).
+#' Mathematical introduction to deep learning: Methods, implementations,
+#' and theory. \url{https://arxiv.org/abs/2310.20360}
 
-#' \emph{Note:} Because of certain quirks of R we will have split
-#' into five cases. We add an extra case for d == 3. Unlike the paper
-#' we will simply reverse engineer the appropriate \emph{d}.
+
+#' @export
+
 Mxm <- function(d) {
+  if (d %% 1 != 0 || d < 1) {
+    stop("d must be a natural number")
+  }
   if (d == 1) {
     return(Aff(1, 0))
   } else if (d == 2) {
@@ -49,6 +75,6 @@ Mxm <- function(d) {
     Mxm(d + 1) |> comp(first_compose) -> return_network
     return(return_network)
   } else {
-    return("Error: possily taking max of vector of length 0")
+    stop("Possibly taking max of vector of length 0")
   }
 }

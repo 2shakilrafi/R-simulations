@@ -11,14 +11,17 @@ source("R/Mxm.R")
 #' of the n sample points
 #' @param L the Lipschitz constant for the function
 #'
-#' @return a neural network that gives the maximum convolution approximation
-#' of a function whose outputs is y at n sample points given by each row of X.
+#' @return A neural network that gives the maximum convolution approximation
+#' of a function whose outputs is \eqn{y} at \eqn{n} sample points given by
+#' each row of \eqn{X}, when instantiated with ReLU.
+#' @export
 
 P <- function(X, y, L) {
   if (X |> is.matrix() == FALSE) (X |> matrix() -> X)
   if (y |> is.matrix() == FALSE) (y |> matrix() -> y)
   X |> nrow() -> d # the dimensionality of our x samples
   X |> ncol() -> n # the number of samples to be taken
+
   if (n == 1) {
     return("Enter atleast 2 interpolating points")
   }

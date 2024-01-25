@@ -6,6 +6,10 @@ source("R/Tay.R")
 #' @param q Real number in \eqn{(2,\infty)}.
 #' @param eps Real number in \eqn{(0, \infty)}.
 #'
+#' \emph{Note: } In practice for most desktop uses
+#' \eqn{q < 2.05} and \eqn{\varepsilon< 0.05} tends to cause problems in
+#' "too long a vector", atleaast as tested on my computer.
+#'
 #' @return A neural network that approximates \eqn{e^x} for real \eqn{x} when
 #' given appropriate \eqn{n,q,\varepsilon} and instnatiated with ReLU
 #' activation at point\eqn{x}.

@@ -32,6 +32,10 @@ source("R/is_nn.R")
 #' for differential equations. Adv Comput Math 49, 4 (2023).
 #' \url{https://doi.org/10.1007/s10444-022-09970-2}.
 #'
+#' @references Definition 2.1.1. Jentzen, A., Kuckuck, B., and von Wurstemberger, P. (2023).
+#' Mathematical introduction to deep learning: Methods, implementations,
+#' and theory. \url{https://arxiv.org/abs/2310.20360}
+#'
 #' \emph{Remark:} We have two versions of this function, an
 #' infix version for close resemblance to mathematical notation and
 #' prefix version.

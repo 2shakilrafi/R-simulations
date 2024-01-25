@@ -9,7 +9,11 @@ source("R/Mxm.R")
 #' That is to say an d by n matrix
 #' @param y a row vector of size m that is the ouput of the function at each
 #' of the n sample points
-#' @param L the Lipschitz constant for the function
+#' @param L the Lipschitz constant for the function.
+#'
+#' @references Lemma 4.2.9. Jentzen, A., Kuckuck, B., and von Wurstemberger, P. (2023).
+#' Mathematical introduction to deep learning: Methods, implementations,
+#' and theory. \url{https://arxiv.org/abs/2310.20360}.
 #'
 #' @return A neural network that gives the maximum convolution approximation
 #' of a function whose outputs is \eqn{y} at \eqn{n} sample points given by

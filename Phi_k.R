@@ -13,6 +13,10 @@ source("R/activations.R")
 #' Space-time error estimates for deep neural network approximations
 #' for differential equations. Adv Comput Math 49, 4 (2023).
 #' https://doi.org/10.1007/s10444-022-09970-2
+#'
+#' @references Definition 2.3.4. Jentzen, A., Kuckuck, B., and von Wurstemberger, P. (2023).
+#' Mathematical introduction to deep learning: Methods, implementations,
+#' and theory. \url{https://arxiv.org/abs/2310.20360}.
 
 c_k <- function(k) {
   2^{
@@ -21,6 +25,7 @@ c_k <- function(k) {
   return(result)
 }
 
+#' This is an intermediate variable, see reference.
 c(0, -1 / 2, -1, 0) |> matrix() -> B
 
 
@@ -55,7 +60,8 @@ A_k <- function(k) {
   return(result)
 }
 
-
+#' This is an intermediate variable. See the reference
+#'
 c(1, 1, 1, 1) |> matrix(4, 1) -> A
 
 

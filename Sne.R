@@ -8,6 +8,10 @@ source("R/Tay.R")
 #' @param q a real number in \eqn{(2,\infty)}
 #' @param eps a real number in \eqn{(0,\infty)}
 #'
+#' \emph{Note: } In practice for most desktop uses
+#' \eqn{q < 2.05} and \eqn{\varepsilon< 0.05} tends to cause problems in
+#' "too long a vector", atleaast as tested on my computer.
+#'
 #' @return a neural network that approximates \eqn{\sin} when given
 #' an appropriate \eqn{n,q,\varepsilon} and instantiated with ReLU
 #' activation and given value \eqn{x}.

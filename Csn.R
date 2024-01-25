@@ -7,6 +7,10 @@ source("R/Tay.R")
 #' @param q a real number in \eqn{(2,\infty)}
 #' @param eps a real number in \eqn{(0,\infty)}
 #'
+#' \emph{Note: } In practice for most desktop uses
+#' \eqn{q < 2.05} and \eqn{\varepsilon< 0.05} tends to cause problems in
+#' "too long a vector", atleaast as tested on my computer.
+#'
 #' @return A neural network that approximates \eqn{\cos} under instantiation
 #' with ReLU activation. See also \code{\link{Sne}}.
 #' @export

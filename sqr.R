@@ -17,12 +17,14 @@ source("R/aux_fun.R")
 #' @references  Grohs, P., Hornung, F., Jentzen, A. et al. Space-time error estimates for deep
 #' neural network approximations for differential equations. Adv Comput Math 49, 4 (2023).
 #' https://doi.org/10.1007/s10444-022-09970-2
+#'
+#'
 #' @export
 
 
 Sqr <- function(q, eps) {
   if (q <= 2 || eps <= 0) {
-    stop("q must be > 2 and eps must be >0")
+    stop("q must be > 2 and eps must be > 0")
   } else {
     2^(-2 / (q - 2)) * eps^(q / (q - 2)) -> delta
     (eps / 2)^(1 / (q - 2)) -> alpha

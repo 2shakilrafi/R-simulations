@@ -1,7 +1,8 @@
 source("aux_fun.R")
 source("Sqr.R")
-source("realization.R")
+source("instantiation.R")
 source("activations.R")
+library("tidyverse")
 
 #' Sqr_diff function
 #'
@@ -64,8 +65,7 @@ fig <- plot_ly(
     yaxis = list(title = "q"),
     zaxis = list(title = "eps")
   )) |>
-  layout(scene = list(legend = list(title = "Diff from x^2"))) |>
-  layout(title = "Isosurface plot of 1-norm error vs parameters")
+  layout(scene = list(legend = list(title = "Diff from x^2")))
 
 fig
 
@@ -82,11 +82,11 @@ for (k in 1:10000) {
   Sqr_data_aux$param[k] <- Sqr(Sqr_data_aux$q[k], Sqr_data_aux$eps[k]) |> param()
 }
 
-experimental_params <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = param)) +
+experimental_params <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(param))) +
   geom_contour_filled() +
   theme_minimal() +
   scale_y_log10() +
-  labs(fill = "#Number of parameters")
+  labs(fill = "Log 10 number of parameters")
 
 Sqr_data_aux$dep <- 0
 
@@ -96,10 +96,9 @@ for (k in 1:10000) {
 
 experimental_deps <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(dep))) +
   geom_contour_filled(alpha = 0.8) +
-  scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Sqr_data_aux$dep), by = 1)) +
   theme_minimal() +
-  labs(fill = "Log10 of depths")
+  labs(fill = "log 10 experimental depths")
 
 
 param_upper_limit <- function(q, eps) {
@@ -120,7 +119,6 @@ for (k in 1:10000) {
 param_theoretical_upper_limits <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(param_upper_limit))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log10 upper limits of parameters")
 
 Sqr_data_aux$dep_upper_limit <- 0
@@ -133,7 +131,6 @@ for (k in 1:10000) {
 dep_theoretical_upper_limits <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log10 upper limits of depth")
 
 ggsave("Sqr_properties/param_theoretical_upper_limits.png", plot = param_theoretical_upper_limits, width = 6, height = 5, units = "in")

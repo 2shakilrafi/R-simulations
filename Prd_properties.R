@@ -1,8 +1,9 @@
 source("aux_fun.R")
 source("Prd.R")
-source("realization.R")
-source("activations.R")
+source("instantiation.R")
 source("Prd.R")
+library(tidyverse)
+
 
 #' The Prd_diff function
 #'
@@ -50,8 +51,7 @@ fig <- plot_ly(
     yaxis = list(title = "q"),
     zaxis = list(title = "eps")
   )) |>
-  layout(scene = list(legend = list(title = "Diff from x^2"))) |>
-  layout(title = "Isosurface plot of 1-norm error vs parameters")
+  layout(scene = list(legend = list(title = "Diff from x^2")))
 
 fig
 
@@ -70,7 +70,7 @@ ggsave("Prd_properties/Prd_diff_hist_plot.png", plot = Prd_diff_hist_plot, width
 library(ggplot2)
 
 Prd_data_aux <- expand.grid(
-  q = seq(2, 10, length.out = 100),
+  q = seq(2.1, 10, length.out = 100),
   eps = seq(0.01, 4, length.out = 100)
 )
 
@@ -80,11 +80,10 @@ for (k in 1:10000) {
   Prd_data_aux$param[k] <- Prd(Prd_data_aux$q[k], Prd_data_aux$eps[k]) |> param()
 }
 
-experimental_params <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = param)) +
+experimental_params <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = log10(param))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
-  labs(fill = "#Number of parameters")
+  labs(fill = "Log10 Number of parameters")
 
 Prd_data_aux$dep <- 0
 
@@ -92,12 +91,11 @@ for (k in 1:10000) {
   Prd_data_aux$dep[k] <- Prd(Prd_data_aux[k, ]$q, Prd_data_aux[k, ]$eps) |> dep()
 }
 
-experimental_deps <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = dep)) +
+experimental_deps <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = log10(dep))) +
   geom_contour_filled(alpha = 0.8, breaks = seq(0, 4, 1)) +
-  scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Prd_data_aux$dep), by = 1)) +
   theme_minimal() +
-  labs(fill = "Depth")
+  labs(fill = "Log10 Depth")
 
 #' The param_upper_limit function
 #'
@@ -107,7 +105,7 @@ experimental_deps <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = dep)) +
 #' @return the theoretical upper limit for the number of parameters
 
 param_upper_limit <- function(q, eps) {
-  (((40 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)
+  (((360 * q) / (q - 2)) * ((1 / eps) |> log(2)) + 80 / (q - 2) - 28) |> max(52)
 }
 
 #' The dep_upper_limit function
@@ -131,7 +129,6 @@ for (k in 1:10000) {
 param_theoretical_upper_limits <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = log10(param_upper_limit))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log10 upper limits of parameters")
 
 Prd_data_aux$dep_upper_limit <- 0
@@ -144,7 +141,6 @@ for (k in 1:10000) {
 dep_theoretical_upper_limits <- ggplot(Prd_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log10 upper limits of depth")
 
 ggsave("Prd_properties/param_theoretical_upper_limits.png", plot = param_theoretical_upper_limits, width = 6, height = 5, units = "in")

@@ -29,13 +29,12 @@ library(ggplot2)
 ggplot(Phi_k_diff_data, aes(x = x, y = diff, color = factor(k))) +
   scale_y_log10() +
   geom_line() +
-  geom_point(aes(y = 2^(-2 * k - 2)), color = "black") +
+  geom_line(aes(y = 2^(-2 * k - 2))) +
   labs(
     x = "x",
-    y = "log10 of the 1-norm distance over domain [0,1]"
-  ) +
-  ggtitle("Plot of the accuracy of ϕ_k over [0,1]") -> Phi_k_diff_plot
-ggsave("Phi_k_properties/Phi_k_diff.png", plot = Phi_k_diff_plot, width = 6, height = 5, units = "in")
+    y = "log10 of the 1-norm error over domain [0,1]"
+  ) -> Phi_k_diff_plot
+ggsave("Phi_k_properties/diff.png", plot = Phi_k_diff_plot, width = 6, height = 5, units = "in")
 
 vectorized_Phi_k <- Vectorize(Phi_k)
 vectorized_param <- Vectorize(param)

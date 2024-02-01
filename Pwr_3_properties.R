@@ -1,4 +1,5 @@
 source("Pwr.R")
+library(tidyverse)
 
 #' Pwr_3_diff function
 #'
@@ -19,6 +20,8 @@ Pwr_3_data <- expand.grid(
   eps = seq(0.01, 2, length.out = 50),
   x = seq(-5, 5, length.out = 50)
 )
+
+
 
 
 
@@ -48,8 +51,7 @@ fig <- plot_ly(
     yaxis = list(title = "q"),
     zaxis = list(title = "eps")
   )) |>
-  layout(scene = list(legend = list(title = "Diff from x^2"))) |>
-  layout(title = "Isosurface plot of 1-norm error vs parameters")
+  layout(scene = list(legend = list(title = "Diff from x^2")))
 
 fig
 
@@ -64,11 +66,10 @@ for (k in 1:10000) {
   Pwr_3_data_aux$param[k] <- Pwr(Pwr_3_data_aux$q[k], Pwr_3_data_aux$eps[k], exponent = 3) |> param()
 }
 
-experimental_params <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = param)) +
+experimental_params <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(param))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
-  labs(fill = "#Number of parameters")
+  labs(fill = "log 10 # of parameters")
 
 Pwr_3_data_aux$dep <- 0
 
@@ -76,12 +77,11 @@ for (k in 1:10000) {
   Pwr_3_data_aux$dep[k] <- Pwr(Pwr_3_data_aux[k, ]$q, Pwr_3_data_aux[k, ]$eps, exponent = 3) |> dep()
 }
 
-experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
+experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(dep))) +
   geom_contour_filled(alpha = 0.8, breaks = seq(0, 10, 1)) +
-  scale_y_log10() +
   # scale_fill_continuous(breaks = seq(0, max(Pwr_3_data_aux$dep), by = 1)) +
   theme_minimal() +
-  labs(fill = "Depth")
+  labs(fill = "log10 depths")
 
 #' The param_upper_limit funnction
 #'
@@ -91,13 +91,13 @@ experimental_deps <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = dep)) +
 #' @return the theoretical upper limit for the number of parameters
 
 param_upper_limit <- function(q, eps) {
-  first_summand <- param(Prd(q, eps))
-  second_summand <- param(Pwr(q, eps, 2)) + 2 * param(Pwr(q, eps, 2)) * (Pwr(q, eps, 2) |> dep() |> Tun() |> param()) +
-    (Pwr(q, eps, 2) |> dep() |> Tun() |> param())^2
-  third_summand <- 24
-  result <- first_summand + 0.5 * second_summand + third_summand
+  4^(4.5) -> first_summand
+  (4^4-1)/3 -> second_summand_a
+  ((360*q)/(q-2))*(log2(1/eps)+q+1)+372 -> second_summand_b
+  first_summand + (second_summand_a * second_summand_b) -> result
   return(result)
 }
+
 
 #' The dep_upper_limit function
 #'
@@ -120,7 +120,6 @@ for (k in 1:10000) {
 param_theoretical_upper_limits <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(param_upper_limit))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log10 upper limits of parameters")
 
 Pwr_3_data_aux$dep_upper_limit <- 0
@@ -130,7 +129,6 @@ for (k in 1:10000) {
 }
 
 dep_theoretical_upper_limits <- ggplot(Pwr_3_data_aux, aes(x = q, y = eps, z = log10(dep_upper_limit))) +
-  scale_y_log10() +
   geom_contour_filled() +
   theme_minimal() +
   labs(fill = "Log10 upper limits of depth")

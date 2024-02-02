@@ -21,10 +21,6 @@ Pwr_3_data <- expand.grid(
   x = seq(-5, 5, length.out = 50)
 )
 
-
-
-
-
 Pwr_3_data$diff <- Pwr_3_diff_v(Pwr_3_data$q, Pwr_3_data$eps, Pwr_3_data$x)
 
 library(ggplot2)

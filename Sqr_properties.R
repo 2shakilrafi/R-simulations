@@ -85,7 +85,6 @@ for (k in 1:10000) {
 experimental_params <- ggplot(Sqr_data_aux, aes(x = q, y = eps, z = log10(param))) +
   geom_contour_filled() +
   theme_minimal() +
-  scale_y_log10() +
   labs(fill = "Log 10 number of parameters")
 
 Sqr_data_aux$dep <- 0
